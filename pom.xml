@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.servicecomb.springcloud</groupId>
+	<artifactId>servicecomb-springcloud</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>servicecomb-springcloud</name>
+	<description>Demo project for Spring Cloud</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.10.RELEASE</version>
+		<relativePath/>
+	</parent>
+
+	<modules>
+		<module>service-common</module>
+		<module>service-gateway</module>
+		<module>service-base</module>
+	</modules>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+		<java.version>1.8</java.version>
+		<spring-cloud.version>Edgware.SR1</spring-cloud.version>
+		<cse.version>2.3.3</cse.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.huawei.paas.cse</groupId>
+				<artifactId>cse-dependency</artifactId>
+				<version>${cse.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.servicecomb</groupId>
+			<artifactId>spring-boot-starter-registry</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.servicecomb</groupId>
+			<artifactId>spring-boot-starter-configuration</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.servicecomb</groupId>
+			<artifactId>spring-boot-starter-discovery</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.huawei.paas.cse</groupId>
+			<artifactId>foundation-auth</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+
+</project>
