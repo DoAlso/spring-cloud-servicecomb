@@ -25,4 +25,12 @@ public class Constant {
         public static final String REQUEST_OK = "success";
         public static final String REQUEST_ERROR = "bad request";
     }
+
+    /**
+     * 通用的键值
+     */
+    public static class CommomKey {
+        public static final String CURRENT_USER = "CURRENT_USER";
+        public static final String CURRENT_USER_TOKEN = "X-Token";
+    }
 }
