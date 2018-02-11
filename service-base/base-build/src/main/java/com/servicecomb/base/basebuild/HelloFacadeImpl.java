@@ -11,6 +11,6 @@ public class HelloFacadeImpl implements HelloFacade{
 
     @Override
     public BackEntity<String> sayHello(String val) {
-        return BackEntityUtil.getRequestResult(val, Constant.ResponseMSG.REQUEST_OK, Constant.ResponseCode.REQUEST_OK);
+        return BackEntityUtil.getReponseResult(val, Constant.ResponseMSG.REQUEST_OK, Constant.ResponseCode.REQUEST_OK);
     }
 }

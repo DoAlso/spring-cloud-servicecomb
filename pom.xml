@@ -22,6 +22,7 @@
 		<module>service-common</module>
 		<module>service-gateway</module>
 		<module>service-base</module>
+		<module>service-unit</module>
 	</modules>
 
 	<properties>

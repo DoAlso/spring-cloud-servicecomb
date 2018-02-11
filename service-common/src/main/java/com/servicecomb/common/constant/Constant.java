@@ -24,6 +24,8 @@ public class Constant {
     public static class ResponseMSG {
         public static final String REQUEST_OK = "success";
         public static final String REQUEST_ERROR = "bad request";
+        public static final String TOKEN_ERROR = "token error";
+        public static final String NO_AUTH = "do not have permission";
     }
 
     /**

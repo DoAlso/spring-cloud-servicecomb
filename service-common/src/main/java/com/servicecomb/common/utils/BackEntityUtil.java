@@ -15,7 +15,7 @@ public class BackEntityUtil {
      * @param resCode
      * @return
      */
-    public static BackEntity getRequestResult(Object object,String resMsg,String resCode){
+    public static BackEntity getReponseResult(Object object,String resMsg,String resCode){
         BackEntity backEntity = new BackEntity();
         backEntity.setResCode(resCode);
         backEntity.setResData(object);

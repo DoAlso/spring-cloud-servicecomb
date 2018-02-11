@@ -29,7 +29,7 @@ public class CheckCurrentUserHandler implements InitializingBean {
      * @param xToken
      * @return
      */
-    public CurrentUser checkAuth(String xToken){
+    public CurrentUser checkCurrentUser(String xToken){
         if(StringUtils.isBlank(xToken)){
             return null;
         }
@@ -37,7 +37,7 @@ public class CheckCurrentUserHandler implements InitializingBean {
         if(param.length != tokenLength){
             return null;
         }
-        CurrentUser currentUser = (CurrentUser)storageClient.getAuthInfo(param[0]).getResData();
+        CurrentUser currentUser = (CurrentUser)storageClient.getCurrentUser(param[0]).getResData();
         if(currentUser == null || !xToken.equals(currentUser.getToken())){
             return null;
         }

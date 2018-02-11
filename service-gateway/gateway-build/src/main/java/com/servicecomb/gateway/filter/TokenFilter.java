@@ -3,11 +3,13 @@ package com.servicecomb.gateway.filter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.servicecomb.common.constant.Constant;
+import com.servicecomb.common.model.vo.CurrentUser;
 import com.servicecomb.common.utils.FastJsonUtil;
 import com.servicecomb.common.utils.LogUtil;
 import com.servicecomb.gateway.auth.CheckCurrentUserHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpMethod;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -47,9 +49,22 @@ public class TokenFilter extends ZuulFilter{
 		RequestContext ctx = RequestContext.getCurrentContext();
 		HttpServletRequest request = ctx.getRequest();
 		String xToken = request.getHeader(Constant.CommomKey.CURRENT_USER_TOKEN);
-		String operationUrl = request.getPathInfo();
-		LogUtil.info(logger,"您的X-Token是:{}",xToken);
-		LogUtil.info(logger,"您请求的地址是:{},您请求的参数是:{}",request.getRequestURL().toString(), FastJsonUtil.toJSONString(request.getParameterMap()));
+		LogUtil.info(logger,"your request header token is:{}",xToken);
+		if(request.getMethod().equals(HttpMethod.GET)){
+			LogUtil.info(logger,"your request path is:{},your query params is:{}",request.getRequestURI(),request.getQueryString());
+		}else{
+			LogUtil.info(logger,"your request path is:{},your query params is:{}",request.getRequestURI(), FastJsonUtil.toJSONString(request.getParameterMap()));
+		}
+		CurrentUser user = checkCurrentUserHandler.checkCurrentUser(xToken);
+		//Token验证错误响应401
+		if(user == null){
+			ctx.setResponseStatusCode(401);
+			ctx.setResponseBody(Constant.ResponseMSG.TOKEN_ERROR);
+			ctx.setSendZuulResponse(false);
+			return null;
+		}
+		//将用户信息传递到下一个过滤器进行权限的验证
+		ctx.set(Constant.CommomKey.CURRENT_USER,user);
 		return null;
 	}
 
