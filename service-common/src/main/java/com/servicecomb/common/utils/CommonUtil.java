@@ -6,13 +6,17 @@ import java.util.Arrays;
 import java.util.Formatter;
 import java.util.Random;
 
-import org.springframework.stereotype.Component;
+import com.servicecomb.common.constant.Constant;
+import com.servicecomb.common.model.vo.CurrentUser;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 
 
-@Component
 public class CommonUtil {
-	
-	 public static final Character[] character = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+
+	public static final Character[] character = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
 			    'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9'};
 
 	public static boolean  checkSignature(String signature, String timestamp,
@@ -70,5 +74,18 @@ public class CommonUtil {
 			sb.append(character[index]);
 		}
 		return sb.toString();
+	}
+
+
+	/**
+	 * 获取请求头中的
+	 * 当前用户信息
+	 * @return
+	 */
+	public static CurrentUser getCurrentUser(){
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		String result = request.getHeader(Constant.CommomKey.CURRENT_USER);
+		CurrentUser currentUser = FastJsonUtil.toBean(result,CurrentUser.class);
+		return currentUser;
 	}
 }

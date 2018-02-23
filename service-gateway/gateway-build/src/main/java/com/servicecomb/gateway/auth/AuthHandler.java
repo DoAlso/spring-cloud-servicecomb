@@ -4,7 +4,9 @@ import com.servicecomb.gateway.filter.AuthFilter;
 import com.servicecomb.gateway.gatewayconsumer.StorageClient;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AuthHandler implements InitializingBean{
     @Autowired
     private StorageClient storageClient;

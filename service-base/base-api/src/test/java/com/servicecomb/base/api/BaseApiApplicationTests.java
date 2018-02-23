@@ -1,4 +1,4 @@
-package com.servicecomb.base.baseapi;
+package com.servicecomb.base.api;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

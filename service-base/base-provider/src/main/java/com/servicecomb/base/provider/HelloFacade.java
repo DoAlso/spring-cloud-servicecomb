@@ -1,4 +1,4 @@
-package com.servicecomb.base.baseprovider;
+package com.servicecomb.base.provider;
 
 import com.servicecomb.common.model.BackEntity;
 

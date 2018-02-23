@@ -44,6 +44,7 @@ public class AuthFilter extends ZuulFilter{
         //设置全局用户信息,供其他微服务操作
         ctx.addZuulRequestHeader(Constant.CommomKey.CURRENT_USER,FastJsonUtil.toJSONString(user));
         //验证当前的操作权限
+        LogUtil.info(logger,"current request uri is:{}",request.getRequestURI());
         if(!authHandler.checkAuth(request.getRequestURI())){
             ctx.setResponseStatusCode(401);
             ctx.setResponseBody(Constant.ResponseMSG.NO_AUTH);
