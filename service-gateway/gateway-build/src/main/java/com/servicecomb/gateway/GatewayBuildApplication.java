@@ -1,6 +1,7 @@
 package com.servicecomb.gateway;
 
 import com.servicecomb.gateway.filter.AuthFilter;
+import com.servicecomb.gateway.filter.PassFilter;
 import com.servicecomb.gateway.filter.TokenFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -26,6 +27,11 @@ public class GatewayBuildApplication {
 	 * 实例化过滤器
 	 * @return
 	 */
+	@Bean
+	public PassFilter passFilter() {
+		return new PassFilter();
+	}
+
 	@Bean
 	public TokenFilter tokenFilter(){
 		return new TokenFilter();

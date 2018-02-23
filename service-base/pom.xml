@@ -13,6 +13,7 @@
 
 	<modules>
 		<module>base-api</module>
+		<module>base-core</module>
 		<module>base-build</module>
 		<module>base-consumer</module>
 		<module>base-provider</module>

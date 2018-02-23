@@ -2,7 +2,7 @@ package com.servicecomb.gateway.auth;
 
 import com.servicecomb.common.model.vo.CurrentUser;
 import com.servicecomb.gateway.filter.TokenFilter;
-import com.servicecomb.gateway.gatewayconsumer.StorageClient;
+import com.servicecomb.gateway.gatewayconsumer.CacheClient;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class CheckCurrentUserHandler implements InitializingBean {
     private Integer tokenLength = 2;//token截取后长度
 
     @Autowired
-    private StorageClient storageClient;
+    private CacheClient storageClient;
 
     @Override
     public void afterPropertiesSet() throws Exception {

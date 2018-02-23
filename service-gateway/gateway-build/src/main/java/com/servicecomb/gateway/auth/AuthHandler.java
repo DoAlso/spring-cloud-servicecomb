@@ -1,7 +1,7 @@
 package com.servicecomb.gateway.auth;
 
 import com.servicecomb.gateway.filter.AuthFilter;
-import com.servicecomb.gateway.gatewayconsumer.StorageClient;
+import com.servicecomb.gateway.gatewayconsumer.CacheClient;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthHandler implements InitializingBean{
     @Autowired
-    private StorageClient storageClient;
+    private CacheClient storageClient;
     @Override
     public void afterPropertiesSet() throws Exception {
         AuthFilter.setAuthHandler(this);

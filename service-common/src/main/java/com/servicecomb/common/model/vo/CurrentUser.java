@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class CurrentUser implements Serializable {
     private String token;
+    private Long id;
     private String account;
 
     public String getToken() {
@@ -12,6 +13,14 @@ public class CurrentUser implements Serializable {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getAccount() {

@@ -24,7 +24,11 @@
 	</properties>
 
 	<dependencies>
-
+		<dependency>
+			<groupId>com.servicecomb.base</groupId>
+			<artifactId>base-core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 </project>
