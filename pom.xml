@@ -14,16 +14,12 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.10.RELEASE</version>
+		<version>2.1.2.RELEASE</version>
 		<relativePath/>
 	</parent>
 
 	<modules>
-		<module>service-common</module>
-		<module>service-gateway</module>
-		<module>service-base</module>
-		<module>service-cache</module>
-		<module>service-unit</module>
+		<module>sample-gateway</module>
 	</modules>
 
 	<properties>
@@ -33,23 +29,17 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
 		<java.version>1.8</java.version>
-		<spring-cloud.version>Edgware.SR2</spring-cloud.version>
-		<cse.version>2.3.3</cse.version>
+		<spring-cloud.version>Greenwich.RC2</spring-cloud.version>
+		<cse.version>2.3.62</cse.version>
+		<jaxws-api.version>2.2-rc2</jaxws-api.version>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>org.springframework.data</groupId>
-				<artifactId>spring-data-releasetrain</artifactId>
-				<version>Fowler-SR2</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
-				<version>1.5.10.RELEASE</version>
+				<version>2.1.2.RELEASE</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -72,27 +62,23 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.apache.servicecomb</groupId>
-			<artifactId>spring-boot-starter-registry</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.servicecomb</groupId>
-			<artifactId>spring-boot-starter-configuration</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.servicecomb</groupId>
-			<artifactId>spring-boot-starter-discovery</artifactId>
+			<groupId>javax.xml.ws</groupId>
+			<artifactId>jaxws-api</artifactId>
+			<version>${jaxws-api.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.huawei.paas.cse</groupId>
-			<artifactId>foundation-auth</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-log4j12</artifactId>
-				</exclusion>
-			</exclusions>
+			<artifactId>cse-solution-spring-cloud</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j2.version}</version>
 		</dependency>
 	</dependencies>
-
 </project>
