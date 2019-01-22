@@ -20,6 +20,9 @@
 
 	<modules>
 		<module>sample-gateway</module>
+		<module>sample-provider</module>
+		<module>sample-consumer</module>
+		<module>sample-common</module>
 	</modules>
 
 	<properties>
@@ -67,18 +70,28 @@
 			<version>${jaxws-api.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.huawei.paas.cse</groupId>
-			<artifactId>cse-solution-spring-cloud</artifactId>
+			<groupId>org.apache.servicecomb</groupId>
+			<artifactId>spring-boot2-starter-discovery</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.servicecomb</groupId>
+					<artifactId>handler-bizkeeper</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>${log4j2.version}</version>
-        </dependency>
 		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-			<version>${log4j2.version}</version>
+			<groupId>com.huawei.paas.cse</groupId>
+			<artifactId>cse-solution-service-engine</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.servicecomb</groupId>
+					<artifactId>handler-bizkeeper</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 </project>

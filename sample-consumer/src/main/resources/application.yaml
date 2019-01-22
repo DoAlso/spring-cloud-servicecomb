@@ -1,9 +1,9 @@
 spring:
   application:
-    name: gateway
+    name: consumer
 
 server:
-  port: 8110
+  port: 8112
 
 # CSE RPC 的配置项
 # 应用名称
@@ -26,20 +26,6 @@ servicecomb:
   monitor:
     client:
       enable: false
-  # 处理链配置
-  handler:
-    chain:
-      Provider:
-        default: qps-flowcontrol-provider
-      Consumer:
-        default: qps-flowcontrol-consumer,loadbalance,fault-injection-consumer
 
-#zuul:
-#  host:
-#    connect-timeout-millis: 60000
-#    socket-timeout-millis: 60000
-#  add-host-header: false
-#  routes:
-#    user:
-#      path: /user/**
-#      service-id: springboot2-sample-zuul-bussiness
+
+

@@ -1,19 +1,19 @@
-package com.sample.servicecomb.gateway;
+package com.sample.servicecomb.consumer;
 
 import org.apache.servicecomb.springboot2.starter.EnableServiceComb;
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
 
 /**
- * @ClassName GatewayApplication
+ * @ClassName ConsumerApplication
  * @Description TODO
  * @Author Administrator
- * @DATE 2019/1/17 14:23
+ * @DATE 2019/1/21 17:07
  */
 @EnableServiceComb
 @SpringCloudApplication
-public class GatewayApplication {
+public class ConsumerApplication {
     public static void main(String[] args) {
-        SpringApplication.run(GatewayApplication.class,args);
+        SpringApplication.run(ConsumerApplication.class,args);
     }
 }
