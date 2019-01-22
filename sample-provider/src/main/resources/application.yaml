@@ -1,9 +1,9 @@
 spring:
   application:
-    name: consumer
+    name: provider
 
 server:
-  port: 8112
+  port: 8111
 
 # CSE RPC 的配置项
 # 应用名称
@@ -11,7 +11,8 @@ APPLICATION_ID: SpringCloud-ServiceComb
 # 微服务名称和版本号，微服务名称使用Spring Cloud的名称
 service_description:
   name: ${spring.application.name}
-  version: 1.0.0
+  version: 1.0.1
+  environment: development
 # 服务中心的地址
 servicecomb:
   service:
