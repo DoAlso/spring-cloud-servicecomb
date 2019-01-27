@@ -17,7 +17,7 @@ service_description:
 servicecomb:
   service:
     registry:
-      address: http://localhost:30100
+      address: http://106.12.97.129:30100
       instance:
         watch: false
   # 对外发布的地址，端口号使用server.port
