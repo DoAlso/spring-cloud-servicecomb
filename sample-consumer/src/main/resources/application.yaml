@@ -28,5 +28,7 @@ servicecomb:
     client:
       enable: false
 
-
+provider:
+  ribbon:
+    NIWSServerListClassName: org.apache.servicecomb.springboot.starter.discovery.ServiceCombServerList
 

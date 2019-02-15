@@ -17,6 +17,6 @@ public class UserRestClient {
     private RestTemplate restTemplate;
 
     public User getUserById(Long id){
-        return restTemplate.getForEntity("cse://provider/user/"+id,User.class,id).getBody();
+        return restTemplate.getForEntity("http://provider/user/"+id,User.class,id).getBody();
     }
 }

@@ -1,6 +1,11 @@
 spring:
   application:
     name: provider
+  servlet:
+    multipart:
+      enabled: true
+      max-request-size: 2048MB
+      max-file-size: 2048MB
 
 server:
   port: 8111
@@ -14,7 +19,7 @@ service_description:
   version: 1.0.1
   environment: development
 # 服务中心的地址
-servicecomb:
+cse:
   service:
     registry:
       address: http://106.12.97.129:30100
@@ -27,3 +32,13 @@ servicecomb:
   monitor:
     client:
       enable: false
+
+#华为OBS文件上传配置
+huawei:
+  obs:
+    ak: 3TWL7VJQ4IM45X3DAMLF
+    sk: i1aCblcgP4ZyoUwBHZnWd4rJCb5skN2Ya0LzSix5
+    end-point: obs.cn-north-1.myhuaweicloud.com
+    https-only: true
+    socket-timeout: 30000
+    connection-timeout: 10000
