@@ -2,6 +2,7 @@ package com.sample.servicecomb.provider.controller;
 
 import com.obs.services.model.PartEtag;
 import com.sample.servicecomb.provider.service.FileService;
+import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +20,9 @@ import java.util.Map;
  * @Author Administrator
  * @DATE 2019/2/13 16:28
  */
+
 @RestController
+@RestSchema(schemaId = "fileController")
 public class FileController {
 
     @Autowired

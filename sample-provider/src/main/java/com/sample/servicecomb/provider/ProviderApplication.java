@@ -1,6 +1,7 @@
 package com.sample.servicecomb.provider;
 
 import com.sample.servicecomb.provider.configuration.OBSConfiguration;
+import org.apache.servicecomb.springboot2.starter.EnableServiceComb;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -11,6 +12,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  * @Author Administrator
  * @DATE 2019/1/21 17:03
  */
+@EnableServiceComb
 @SpringBootApplication
 @EnableConfigurationProperties(OBSConfiguration.class)
 public class ProviderApplication {

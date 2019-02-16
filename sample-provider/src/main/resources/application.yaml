@@ -19,7 +19,7 @@ service_description:
   version: 1.0.1
   environment: development
 # 服务中心的地址
-cse:
+servicecomb:
   service:
     registry:
       address: http://106.12.97.129:30100

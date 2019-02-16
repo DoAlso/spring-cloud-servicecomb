@@ -1,6 +1,7 @@
 package com.sample.servicecomb.provider.controller;
 
 import com.sample.servicecomb.common.api.IUserController;
+import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.springframework.web.bind.annotation.*;
 import com.sample.servicecomb.common.bean.User;
 /**
@@ -11,6 +12,7 @@ import com.sample.servicecomb.common.bean.User;
  */
 
 @RestController
+@RestSchema(schemaId = "userController")
 public class UserController implements IUserController {
 
     @GetMapping("/user/{id}")

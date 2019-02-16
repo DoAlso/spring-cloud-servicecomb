@@ -37,9 +37,26 @@
 	</properties>
 
 	<dependencies>
+		<!-- 说明：两者的使用方式无法兼容 -->
+		<!-- 当使用cse-solution-spring-cloud进行SpringCloud微服务接入时,微服务的调用采用http协议的原生调用方式 -->
+		<!--<dependency>-->
+			<!--<groupId>com.huawei.paas.cse</groupId>-->
+			<!--<artifactId>cse-solution-spring-cloud</artifactId>-->
+		<!--</dependency>-->
+		<!-- 当使用spring-boot2-starter-discovery进行SpringCloud的微服务接入时，微服务采用RPC协议和CSE协议方式调用 -->
+		<dependency>
+			<groupId>org.apache.servicecomb</groupId>
+			<artifactId>spring-boot2-starter-discovery</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.huawei.paas.cse</groupId>
-			<artifactId>cse-solution-spring-cloud</artifactId>
+			<artifactId>cse-solution-service-engine</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 

@@ -1,22 +1,21 @@
 package com.sample.servicecomb.consumer.rest;
 
-import com.sample.servicecomb.common.bean.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * @ClassName UserRestClient
+ * @ClassName DemoRestClient
  * @Description TODO
  * @Author Administrator
- * @DATE 2019/1/22 18:09
+ * @DATE 2019/2/16 13:37
  */
 @Component
-public class UserRestClient {
+public class DemoRestClient {
     @Autowired
     private RestTemplate restTemplate;
 
-    public User getUserById(Long id){
-        return restTemplate.getForEntity("cse://provider/user/"+id,User.class,id).getBody();
+    public String sayHi(String name){
+        return restTemplate.getForEntity("http://demo/sayHi",String.class,name).getBody();
     }
 }
