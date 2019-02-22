@@ -19,9 +19,23 @@ public class UserController implements IUserController {
     @Override
     public User getUserById(@PathVariable Long id){
         User user = new User();
-        user.setId(id);
-        user.setUserName("胡亚曦");
-        user.setAge(27);
+        user.setUserId(id);
+        user.setUsername("胡亚曦");
+        user.setAccount("admin");
+        user.setPassword("123456");
         return user;
+    }
+
+    @GetMapping("/login")
+    public User login(String account,String password){
+        if("admin".equals(account) && "123456".equals(password)){
+            User user = new User();
+            user.setUserId(1L);
+            user.setUsername("胡亚曦");
+            user.setAccount("admin");
+            user.setPassword("123456");
+            return user;
+        }
+        return null;
     }
 }

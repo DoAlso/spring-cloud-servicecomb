@@ -22,12 +22,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <groupId>org.apache.servicecomb</groupId>
+            <artifactId>spring-boot2-starter-servlet</artifactId>
         </dependency>
         <dependency>
             <groupId>com.servicecomb.springcloud</groupId>

@@ -1,24 +1,22 @@
 package com.sample.servicecomb.provider.service.impl;
 
 import com.obs.services.exception.ObsException;
+import com.obs.services.model.CompleteMultipartUploadResult;
 import com.obs.services.model.PartEtag;
 import com.obs.services.model.PutObjectResult;
+import com.obs.services.model.UploadPartResult;
+import com.sample.servicecomb.common.bean.ResponseEntity;
+import com.sample.servicecomb.common.util.ResponseEntityUtil;
 import com.sample.servicecomb.provider.configuration.OBSConfiguration;
 import com.sample.servicecomb.provider.service.FileService;
 import com.sample.servicecomb.provider.utils.ConstantsUtil;
 import com.sample.servicecomb.provider.utils.OBSUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @ClassName FileServiceImpl
@@ -32,49 +30,32 @@ public class FileServiceImpl implements FileService {
     @Autowired
     private OBSConfiguration obsConfiguration;
 
+
     @Override
-    public Map<String, Object> upload(MultipartFile file, Integer partNum, String uploadId, List<PartEtag> partEtags) throws Exception{
-        Map<String,Object> uploadMap = new HashMap<>(2);
+    public ResponseEntity claimUploadId(String fileName) throws Exception {
         OBSUtil.getInstance(obsConfiguration);
-        String objectKey = file.getOriginalFilename();
-        if(uploadId == null){
-            String claimUploadId = OBSUtil.claimUploadId(ConstantsUtil.OBS.BUCKET_NAME,objectKey);
-            uploadMap.put("uploadId",claimUploadId);
-            return uploadMap;
-        }
-        if(partEtags == null || partEtags.isEmpty()){
-            return OBSUtil.uploadPart(ConstantsUtil.OBS.BUCKET_NAME,objectKey,partNum,uploadId,file);
-        }
-        OBSUtil.completeMultipartUpload(uploadId,ConstantsUtil.OBS.BUCKET_NAME,objectKey,partEtags);
-        uploadMap.put("errorCode",200);
-        uploadMap.put("errorMsg","success");
-        return uploadMap;
+        String claimUploadId = OBSUtil.claimUploadId(ConstantsUtil.OBS.BUCKET_NAME,fileName);
+        return ResponseEntityUtil.response("ok","0000",claimUploadId);
     }
 
     @Override
-    public List<String> uploadFile(MultipartFile... files) throws Exception{
+    public ResponseEntity upload(MultipartFile multipartFile,String fileName,Integer partNum, String uploadId) throws Exception{
         OBSUtil.getInstance(obsConfiguration);
-        List<String> urls = new ArrayList<>();
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(10,10,60L, TimeUnit.SECONDS,new LinkedBlockingQueue<>(10));
-        for (MultipartFile file:files){
-            executor.submit(()-> {
-                try {
-                    PutObjectResult result = OBSUtil.putObject(ConstantsUtil.OBS.BUCKET_NAME,file.getOriginalFilename(),file.getInputStream());
-                    urls.add(result.getObjectUrl());
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+        PartEtag partEtag = OBSUtil.uploadPart(multipartFile,ConstantsUtil.OBS.BUCKET_NAME,fileName,partNum,uploadId);
+        return ResponseEntityUtil.response("ok","0000",partEtag);
+    }
 
-            });
-        }
-        executor.shutdown();
-        while (!executor.isTerminated()) {
-            try {
-                executor.awaitTermination(5, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        return urls;
+    @Override
+    public ResponseEntity completeMultipartUpload(String uploadId, String objectKey, List<PartEtag> partETags) throws Exception {
+        OBSUtil.getInstance(obsConfiguration);
+        CompleteMultipartUploadResult uploadResult = OBSUtil.completeMultipartUpload(uploadId,ConstantsUtil.OBS.BUCKET_NAME,objectKey,partETags);
+        return ResponseEntityUtil.response("ok","0000",uploadResult);
+    }
+
+    @Override
+    public ResponseEntity sampleUpload(MultipartFile file) throws Exception {
+        OBSUtil.getInstance(obsConfiguration);
+        PutObjectResult result = OBSUtil.putObject(ConstantsUtil.OBS.BUCKET_NAME,file.getOriginalFilename(),file.getInputStream());
+        return ResponseEntityUtil.response("ok","0000",result);
     }
 }

@@ -43,11 +43,7 @@
 			<!--<groupId>com.huawei.paas.cse</groupId>-->
 			<!--<artifactId>cse-solution-spring-cloud</artifactId>-->
 		<!--</dependency>-->
-		<!-- 当使用spring-boot2-starter-discovery进行SpringCloud的微服务接入时，微服务采用RPC协议和CSE协议方式调用 -->
-		<dependency>
-			<groupId>org.apache.servicecomb</groupId>
-			<artifactId>spring-boot2-starter-discovery</artifactId>
-		</dependency>
+		<!-- 当使用cse-solution-service-engine进行SpringCloud的微服务接入时，微服务采用RPC协议和CSE协议方式调用 -->
 		<dependency>
 			<groupId>com.huawei.paas.cse</groupId>
 			<artifactId>cse-solution-service-engine</artifactId>

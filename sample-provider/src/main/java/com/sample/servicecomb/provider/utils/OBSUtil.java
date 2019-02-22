@@ -2,6 +2,7 @@ package com.sample.servicecomb.provider.utils;
 
 import com.obs.services.ObsClient;
 import com.obs.services.ObsConfiguration;
+import com.obs.services.exception.ObsException;
 import com.obs.services.model.*;
 import com.sample.servicecomb.provider.configuration.OBSConfiguration;
 import org.springframework.web.multipart.MultipartFile;
@@ -115,33 +116,23 @@ public class OBSUtil {
      * 文件分片上传
      * 数据初始化
      * @param bucketName
-     * @param objectKey
      * @return
      */
-    public static String claimUploadId(String bucketName,String objectKey) {
-        InitiateMultipartUploadRequest request = new InitiateMultipartUploadRequest(bucketName, objectKey);
+    public static String claimUploadId(String bucketName,String fileName) throws Exception{
+        InitiateMultipartUploadRequest request = new InitiateMultipartUploadRequest(bucketName, fileName);
         InitiateMultipartUploadResult result = obsClient.initiateMultipartUpload(request);
         return result.getUploadId();
     }
 
 
-    public static Map<String,Object> uploadPart(String bucketName, String objectKey, Integer partNum, String uploadId, MultipartFile file) throws Exception{
-        UploadPartRequest request = new UploadPartRequest(bucketName, objectKey);
-        // 设置Upload ID
-        request.setUploadId(uploadId);
-        // 设置分段号，范围是1~10000，
-        request.setPartNumber(1);
-        // 设置将要上传的大文件流
-        request.setInput(file.getInputStream());
-        // 设置第二段的段偏移量
-        request.setOffset(partNum*ConstantsUtil.OBS.FILE_PART);
-        // 设置分段大小
-        request.setPartSize(ConstantsUtil.OBS.FILE_PART);
-        UploadPartResult result = obsClient.uploadPart(request);
-        Map<String,Object> uploadResult = new HashMap<>(2);
-        uploadResult.put("partEtag",new PartEtag(result.getEtag(),result.getPartNumber()));
-        uploadResult.put("uploadId",uploadId);
-        return uploadResult;
+    public static PartEtag uploadPart(MultipartFile multipartFile,String bucketName,String fileName,Integer partNum, String uploadId) throws Exception{
+        UploadPartResult uploadPartResult = obsClient.uploadPart(bucketName,fileName,uploadId,partNum+1,multipartFile.getInputStream());
+        return new PartEtag(uploadPartResult.getEtag(), uploadPartResult.getPartNumber());
+    }
+
+    private static void listAllParts(String bucketName,String objectKey,String uploadId) throws ObsException {
+        ListPartsRequest listPartsRequest = new ListPartsRequest(bucketName, objectKey, uploadId);
+        obsClient.listParts(listPartsRequest);
     }
 
 
@@ -150,13 +141,13 @@ public class OBSUtil {
      * @param uploadId
      * @param bucketName
      * @param objectKey
-     * @param partEtags
      */
-    public static void completeMultipartUpload(String uploadId, String bucketName, String objectKey, List<PartEtag> partEtags) {
-        Collections.sort(partEtags, Comparator.comparingInt(PartEtag::getPartNumber));
+    public static CompleteMultipartUploadResult completeMultipartUpload(String uploadId, String bucketName, String objectKey,List<PartEtag> partETags) {
+        listAllParts(bucketName, objectKey, uploadId);
+        Collections.sort(partETags,Comparator.comparingInt(PartEtag::getPartNumber));
         CompleteMultipartUploadRequest completeMultipartUploadRequest =
-                new CompleteMultipartUploadRequest(bucketName, objectKey, uploadId, partEtags);
-        obsClient.completeMultipartUpload(completeMultipartUploadRequest);
+                new CompleteMultipartUploadRequest(bucketName, objectKey, uploadId, partETags);
+        return obsClient.completeMultipartUpload(completeMultipartUploadRequest);
     }
 
 

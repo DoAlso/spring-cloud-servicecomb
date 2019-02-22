@@ -1,11 +1,6 @@
 spring:
   application:
     name: provider
-  servlet:
-    multipart:
-      enabled: true
-      max-request-size: 2048MB
-      max-file-size: 2048MB
 
 server:
   port: 8111
@@ -33,11 +28,33 @@ servicecomb:
     client:
       enable: false
 
+  #配置文件上传
+  uploads:
+    directory: tmp
+    maxSize: -1
+
+  #配置请求跨域
+  cors:
+    enabled: true
+    origin: "*"
+    allowCredentials: false
+    allowedMethod: PUT,DELETE,POST,GET
+    allowedHeader: "*"
+    maxAge: 3600
+
+  # 处理链配置
+  handler:
+    chain:
+      Provider:
+        default: qps-flowcontrol-provider
+      Consumer:
+        default: qps-flowcontrol-consumer,loadbalance,fault-injection-consumer
+
 #华为OBS文件上传配置
 huawei:
   obs:
-    ak: 3TWL7VJQ4IM45X3DAMLF
-    sk: i1aCblcgP4ZyoUwBHZnWd4rJCb5skN2Ya0LzSix5
+    ak: 8GVGNWRNMNYXEZMPAYNF
+    sk: EuyHbFkyLIDqqlFFYToE8Zba5lEsa5okODAqgvJV
     end-point: obs.cn-north-1.myhuaweicloud.com
     https-only: true
     socket-timeout: 30000

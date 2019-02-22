@@ -34,12 +34,12 @@ servicecomb:
       Consumer:
         default: qps-flowcontrol-consumer,loadbalance,fault-injection-consumer
 
-#zuul:
-#  host:
-#    connect-timeout-millis: 60000
-#    socket-timeout-millis: 60000
-#  add-host-header: false
-#  routes:
-#    user:
-#      path: /user/**
-#      service-id: springboot2-sample-zuul-bussiness
+  # Edge请求转发配置
+  http:
+    dispatcher:
+      edge:
+        default:
+          enabled: true
+          prefix: api
+          withVersion: false
+          prefixSegmentCount: 2

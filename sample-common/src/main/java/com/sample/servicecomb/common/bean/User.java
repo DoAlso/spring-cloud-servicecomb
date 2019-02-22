@@ -7,31 +7,40 @@ package com.sample.servicecomb.common.bean;
  * @DATE 2019/1/21 17:22
  */
 public class User {
-    private Long id;
-    private String userName;
-    private Integer age;
+    private Long userId;
+    private String username;
+    private String account;
+    private String password;
 
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getAccount() {
+        return account;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
