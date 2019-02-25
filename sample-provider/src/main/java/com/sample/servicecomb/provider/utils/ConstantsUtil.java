@@ -10,5 +10,6 @@ public class ConstantsUtil {
     public static final class OBS {
         public static final Integer HTTP_OK = 200;
         public static final String BUCKET_NAME = "my-bucket";
+        public static final String FACE_SET_BUCKET = "show-face";
     }
 }

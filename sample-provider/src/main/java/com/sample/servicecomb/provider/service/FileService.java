@@ -1,6 +1,7 @@
 package com.sample.servicecomb.provider.service;
 import com.obs.services.model.PartEtag;
 import com.sample.servicecomb.common.bean.ResponseEntity;
+import com.sample.servicecomb.provider.model.req.CreateBucketReq;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -45,4 +46,13 @@ public interface FileService {
      * @throws Exception
      */
     ResponseEntity sampleUpload(MultipartFile file) throws Exception;
+
+
+    /**
+     * 创建OBS桶
+     * @param createBucketReq
+     * @return
+     * @throws Exception
+     */
+    ResponseEntity createBucket(CreateBucketReq createBucketReq) throws Exception;
 }

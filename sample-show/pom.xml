@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sample-gateway</artifactId>
+    <artifactId>sample-show</artifactId>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,16 +25,20 @@
             <groupId>org.apache.servicecomb</groupId>
             <artifactId>spring-boot2-starter-servlet</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
         </dependency>
+
         <dependency>
-            <groupId>org.apache.servicecomb</groupId>
-            <artifactId>edge-core</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
+
 
     <build>
         <plugins>
@@ -44,4 +48,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

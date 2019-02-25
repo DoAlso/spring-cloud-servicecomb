@@ -1,9 +1,9 @@
 spring:
   application:
-    name: provider
+    name: show
 
 server:
-  port: 8111
+  port: 8113
 
 # CSE RPC 的配置项
 # 应用名称
@@ -11,7 +11,7 @@ APPLICATION_ID: SpringCloud-ServiceComb
 # 微服务名称和版本号，微服务名称使用Spring Cloud的名称
 service_description:
   name: ${spring.application.name}
-  version: 1.0.1
+  version: 1.0.0
   environment: development
 # 服务中心的地址
 servicecomb:
@@ -27,11 +27,6 @@ servicecomb:
   monitor:
     client:
       enable: false
-
-  #配置文件上传
-  uploads:
-    directory: tmp
-    maxSize: -1
 
   #配置请求跨域
   cors:
@@ -49,15 +44,3 @@ servicecomb:
         default: qps-flowcontrol-provider
       Consumer:
         default: qps-flowcontrol-consumer,loadbalance,fault-injection-consumer
-
-#华为OBS文件上传配置
-huawei:
-  obs:
-#    ak: 8GVGNWRNMNYXEZMPAYNF
-#    sk: EuyHbFkyLIDqqlFFYToE8Zba5lEsa5okODAqgvJV
-    end-point: obs.cn-north-1.myhuaweicloud.com
-    https-only: true
-    socket-timeout: 30000
-    connection-timeout: 10000
-    sk: i1aCblcgP4ZyoUwBHZnWd4rJCb5skN2Ya0LzSix5
-    ak: 3TWL7VJQ4IM45X3DAMLF

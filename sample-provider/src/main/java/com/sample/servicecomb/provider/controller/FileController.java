@@ -4,6 +4,7 @@ import com.obs.services.model.CompleteMultipartUploadResult;
 import com.obs.services.model.PartEtag;
 import com.sample.servicecomb.common.bean.ResponseEntity;
 import com.sample.servicecomb.provider.model.req.CompleteMultipartReq;
+import com.sample.servicecomb.provider.model.req.CreateBucketReq;
 import com.sample.servicecomb.provider.model.req.FileReq;
 import com.sample.servicecomb.provider.service.FileService;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
@@ -46,5 +47,11 @@ public class FileController {
     @PostMapping(value = "/sampleUpload",consumes = MediaType.MULTIPART_FORM_DATA)
     public ResponseEntity sampleUpload(@RequestPart(name = "file") MultipartFile multipartFile) throws Exception {
         return fileService.sampleUpload(multipartFile);
+    }
+
+
+    @PostMapping(value = "/createBucket")
+    public ResponseEntity createBucket(@RequestBody CreateBucketReq createBucketReq) throws Exception {
+        return fileService.createBucket(createBucketReq);
     }
 }

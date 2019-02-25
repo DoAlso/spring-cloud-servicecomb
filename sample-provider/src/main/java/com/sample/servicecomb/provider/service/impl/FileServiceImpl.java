@@ -1,13 +1,11 @@
 package com.sample.servicecomb.provider.service.impl;
 
 import com.obs.services.exception.ObsException;
-import com.obs.services.model.CompleteMultipartUploadResult;
-import com.obs.services.model.PartEtag;
-import com.obs.services.model.PutObjectResult;
-import com.obs.services.model.UploadPartResult;
+import com.obs.services.model.*;
 import com.sample.servicecomb.common.bean.ResponseEntity;
 import com.sample.servicecomb.common.util.ResponseEntityUtil;
 import com.sample.servicecomb.provider.configuration.OBSConfiguration;
+import com.sample.servicecomb.provider.model.req.CreateBucketReq;
 import com.sample.servicecomb.provider.service.FileService;
 import com.sample.servicecomb.provider.utils.ConstantsUtil;
 import com.sample.servicecomb.provider.utils.OBSUtil;
@@ -57,5 +55,12 @@ public class FileServiceImpl implements FileService {
         OBSUtil.getInstance(obsConfiguration);
         PutObjectResult result = OBSUtil.putObject(ConstantsUtil.OBS.BUCKET_NAME,file.getOriginalFilename(),file.getInputStream());
         return ResponseEntityUtil.response("ok","0000",result);
+    }
+
+    @Override
+    public ResponseEntity createBucket(CreateBucketReq createBucketReq) throws Exception {
+        OBSUtil.getInstance(obsConfiguration);
+        ObsBucket bucket = OBSUtil.createBucket(createBucketReq.getBucketName());
+        return ResponseEntityUtil.response("ok","0000",bucket);
     }
 }
