@@ -12,6 +12,7 @@ APPLICATION_ID: SpringCloud-ServiceComb
 service_description:
   name: ${spring.application.name}
   version: 1.0.0
+  environment: development
 # 服务中心的地址
 servicecomb:
   service:
@@ -34,7 +35,7 @@ servicecomb:
       Consumer:
         default: qps-flowcontrol-consumer,loadbalance,fault-injection-consumer
 
-  # Edge请求转发配置
+    # 路由配置
   http:
     dispatcher:
       edge:
