@@ -18,6 +18,12 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
         <java.version>1.8</java.version>
+        <generator.version>1.3.7</generator.version>
+        <generator-core.version>1.3.7</generator-core.version>
+        <mysql-connector.version>5.1.46</mysql-connector.version>
+        <mybatis-starter>1.3.2</mybatis-starter>
+        <mysql-connector.version>8.0.11</mysql-connector.version>
+        <druid.version>1.1.10</druid.version>
     </properties>
 
     <dependencies>
@@ -29,6 +35,30 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.huaweicloud.frs</groupId>
+            <artifactId>frs-sdk</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>${mybatis-starter}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>${druid.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -46,6 +76,11 @@
             <version>3.0.3</version>
         </dependency>
         <dependency>
+            <groupId>com.huaweicloud.dis</groupId>
+            <artifactId>huaweicloud-sdk-java-dis</artifactId>
+            <version>1.3.1</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -56,6 +91,46 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+
+    <profiles>
+        <profile>
+            <id>generator</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.mybatis.generator</groupId>
+                        <artifactId>mybatis-generator-maven-plugin</artifactId>
+                        <version>${generator.version}</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.mybatis.generator</groupId>
+                                <artifactId>mybatis-generator-core</artifactId>
+                                <version>${generator-core.version}</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>mysql</groupId>
+                                <artifactId>mysql-connector-java</artifactId>
+                                <version>${mysql-connector.version}</version>
+                            </dependency>
+                        </dependencies>
+                        <configuration>
+                            <configurationFile>${basedir}/src/main/resources/generator/generatorConfig.xml</configurationFile>
+                            <overwrite>true</overwrite>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 
     <build>
         <plugins>

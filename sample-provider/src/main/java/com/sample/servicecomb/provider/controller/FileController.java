@@ -45,8 +45,8 @@ public class FileController {
 
 
     @PostMapping(value = "/sampleUpload",consumes = MediaType.MULTIPART_FORM_DATA)
-    public ResponseEntity sampleUpload(@RequestPart(name = "file") MultipartFile multipartFile) throws Exception {
-        return fileService.sampleUpload(multipartFile);
+    public ResponseEntity sampleUpload(@RequestPart(name = "file") MultipartFile multipartFile,Long faceSetId) throws Exception {
+        return fileService.sampleUpload(multipartFile,faceSetId);
     }
 
 

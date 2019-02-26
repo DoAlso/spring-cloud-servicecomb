@@ -45,7 +45,7 @@ public interface FileService {
      * @return
      * @throws Exception
      */
-    ResponseEntity sampleUpload(MultipartFile file) throws Exception;
+    ResponseEntity sampleUpload(MultipartFile file,Long faceSetId) throws Exception;
 
 
     /**

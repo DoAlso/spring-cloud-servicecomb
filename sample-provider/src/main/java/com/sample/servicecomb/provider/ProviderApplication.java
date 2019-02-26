@@ -1,5 +1,7 @@
 package com.sample.servicecomb.provider;
 
+import com.sample.servicecomb.provider.configuration.DISConfiguration;
+import com.sample.servicecomb.provider.configuration.FrsConfiguration;
 import com.sample.servicecomb.provider.configuration.OBSConfiguration;
 import org.apache.servicecomb.springboot2.starter.EnableServiceComb;
 import org.springframework.boot.SpringApplication;
@@ -15,7 +17,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  */
 @EnableServiceComb
 @SpringBootApplication
-@EnableConfigurationProperties(OBSConfiguration.class)
+@EnableConfigurationProperties({OBSConfiguration.class, FrsConfiguration.class, DISConfiguration.class})
 public class ProviderApplication {
     public static void main(String[] args) {
         SpringApplication application = new SpringApplication(ProviderApplication.class);

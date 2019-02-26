@@ -1,19 +1,23 @@
 package com.sample.servicecomb.provider.service.impl;
 
-import com.obs.services.exception.ObsException;
 import com.obs.services.model.*;
 import com.sample.servicecomb.common.bean.ResponseEntity;
 import com.sample.servicecomb.common.util.ResponseEntityUtil;
 import com.sample.servicecomb.provider.configuration.OBSConfiguration;
+import com.sample.servicecomb.provider.dao.BaseObsMapper;
+import com.sample.servicecomb.provider.dao.FaceSetMapper;
+import com.sample.servicecomb.provider.model.BaseObs;
+import com.sample.servicecomb.provider.model.FaceSet;
 import com.sample.servicecomb.provider.model.req.CreateBucketReq;
 import com.sample.servicecomb.provider.service.FileService;
 import com.sample.servicecomb.provider.utils.ConstantsUtil;
 import com.sample.servicecomb.provider.utils.OBSUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,7 +31,10 @@ public class FileServiceImpl implements FileService {
 
     @Autowired
     private OBSConfiguration obsConfiguration;
-
+    @Resource
+    private BaseObsMapper baseObsMapper;
+    @Resource
+    private FaceSetMapper faceSetMapper;
 
     @Override
     public ResponseEntity claimUploadId(String fileName) throws Exception {
@@ -51,10 +58,25 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public ResponseEntity sampleUpload(MultipartFile file) throws Exception {
+    public ResponseEntity sampleUpload(MultipartFile file,Long faceSetId) throws Exception {
+        FaceSet faceSet = faceSetMapper.selectByPrimaryKey(faceSetId);
         OBSUtil.getInstance(obsConfiguration);
-        PutObjectResult result = OBSUtil.putObject(ConstantsUtil.OBS.BUCKET_NAME,file.getOriginalFilename(),file.getInputStream());
-        return ResponseEntityUtil.response("ok","0000",result);
+        PutObjectResult result = OBSUtil.putObject(faceSet.getFaceSetName(),file.getOriginalFilename(),file.getInputStream());
+        BaseObs baseObs = new BaseObs();
+        baseObs.setBucketName(result.getBucketName());
+        baseObs.setObjectKey(result.getObjectKey());
+        baseObs.setFileName(file.getOriginalFilename());
+        baseObs.setFileExtName(result.getObjectKey().substring(result.getObjectKey().lastIndexOf(".") + 1));
+        baseObs.setCreater("admin");
+        baseObs.setCreated(new Date(System.currentTimeMillis()));
+        baseObs.setObsDomain("");
+        baseObs.setFileSize(file.getSize());
+        baseObs.setEnable(true);
+        baseObs.setObjectUrl(result.getObjectUrl());
+        baseObs.setVersionId(result.getVersionId());
+        baseObs.setEtag(result.getEtag());
+        baseObsMapper.insertSelective(baseObs);
+        return ResponseEntityUtil.response("ok","0000",baseObs);
     }
 
     @Override

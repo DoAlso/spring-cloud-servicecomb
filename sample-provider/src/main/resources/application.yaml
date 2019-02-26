@@ -1,6 +1,11 @@
 spring:
   application:
     name: provider
+  datasource:
+    url: jdbc:mysql:///hoolink-face?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: qwe12356
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
 server:
   port: 8111
@@ -53,11 +58,27 @@ servicecomb:
 #华为OBS文件上传配置
 huawei:
   obs:
-#    ak: 8GVGNWRNMNYXEZMPAYNF
-#    sk: EuyHbFkyLIDqqlFFYToE8Zba5lEsa5okODAqgvJV
     end-point: obs.cn-north-1.myhuaweicloud.com
     https-only: true
     socket-timeout: 30000
     connection-timeout: 10000
     sk: i1aCblcgP4ZyoUwBHZnWd4rJCb5skN2Ya0LzSix5
     ak: 3TWL7VJQ4IM45X3DAMLF
+  dis:
+    access-key: 3TWL7VJQ4IM45X3DAMLF
+    secret-key: i1aCblcgP4ZyoUwBHZnWd4rJCb5skN2Ya0LzSix5
+    region: cn-north-1
+    end-point: https://dis.cn-north-1.myhuaweicloud.com:20004
+    project-id: 3c9ff3e423154e03bb8d65cfc5ae0d67
+  frs:
+    access-key: 3TWL7VJQ4IM45X3DAMLF
+    secret-key: i1aCblcgP4ZyoUwBHZnWd4rJCb5skN2Ya0LzSix5
+    region: cn-north-1
+    project-id: 3c9ff3e423154e03bb8d65cfc5ae0d67
+    end-point: https://face.cn-north-1.myhuaweicloud.com
+    api-version: v1
+    service-name: frs
+
+mybatis:
+  mapper-locations: classpath:mybatis/*.xml
+  type-aliases-package: com.sample.servicecomb.provider.model
