@@ -802,6 +802,76 @@ public class FaceInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andObsUrlIsNull() {
+            addCriterion("obs_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andObsUrlIsNotNull() {
+            addCriterion("obs_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andObsUrlEqualTo(String value) {
+            addCriterion("obs_url =", value, "obsUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andObsUrlNotEqualTo(String value) {
+            addCriterion("obs_url <>", value, "obsUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andObsUrlGreaterThan(String value) {
+            addCriterion("obs_url >", value, "obsUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andObsUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("obs_url >=", value, "obsUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andObsUrlLessThan(String value) {
+            addCriterion("obs_url <", value, "obsUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andObsUrlLessThanOrEqualTo(String value) {
+            addCriterion("obs_url <=", value, "obsUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andObsUrlLike(String value) {
+            addCriterion("obs_url like", value, "obsUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andObsUrlNotLike(String value) {
+            addCriterion("obs_url not like", value, "obsUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andObsUrlIn(List<String> values) {
+            addCriterion("obs_url in", values, "obsUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andObsUrlNotIn(List<String> values) {
+            addCriterion("obs_url not in", values, "obsUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andObsUrlBetween(String value1, String value2) {
+            addCriterion("obs_url between", value1, value2, "obsUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andObsUrlNotBetween(String value1, String value2) {
+            addCriterion("obs_url not between", value1, value2, "obsUrl");
+            return (Criteria) this;
+        }
+
         public Criteria andProvinceIsNull() {
             addCriterion("province is null");
             return (Criteria) this;

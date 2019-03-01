@@ -2,7 +2,8 @@ package com.sample.servicecomb.provider.service;
 
 import com.huaweicloud.dis.iface.data.response.Record;
 import com.sample.servicecomb.common.bean.ResponseEntity;
-import com.sample.servicecomb.provider.model.FaceInfo;
+import com.sample.servicecomb.provider.model.req.CreateFaceReq;
+import com.sample.servicecomb.provider.model.req.CreateFaceSetReq;
 
 public interface FaceService {
     /**
@@ -15,9 +16,21 @@ public interface FaceService {
 
 
     /**
-     *
+     * 上传VIP人脸
      * @return
      * @throws Exception
      */
-    ResponseEntity createVipFace(FaceInfo faceInfo) throws Exception;
+    ResponseEntity createVipFace(CreateFaceReq createFaceReq) throws Exception;
+
+
+    /**
+     * 创建VIP人脸库
+     * @return
+     * @throws Exception
+     */
+    ResponseEntity createFaceSet(CreateFaceSetReq createFaceSetReq) throws Exception;
+
+
+
+    ResponseEntity deleteFaceSet(String faceSetName) throws Exception;
 }

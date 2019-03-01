@@ -2,15 +2,10 @@ package com.sample.servicecomb.provider.utils;
 
 import com.huaweicloud.frs.client.param.AddExternalFields;
 import com.huaweicloud.frs.client.param.AuthInfo;
-import com.huaweicloud.frs.client.param.CreateExternalFields;
 import com.huaweicloud.frs.client.param.FieldType;
-import com.huaweicloud.frs.client.result.AddFaceResult;
-import com.huaweicloud.frs.client.result.CompareFaceResult;
-import com.huaweicloud.frs.client.result.CreateFaceSetResult;
-import com.huaweicloud.frs.client.result.DetectFaceResult;
+import com.huaweicloud.frs.client.result.*;
 import com.huaweicloud.frs.client.service.FrsClient;
 import com.sample.servicecomb.provider.configuration.FrsConfiguration;
-
 import java.util.Map;
 
 /**
@@ -39,17 +34,24 @@ public class FrsUtil {
      * 创建人脸库
      * @param faceSetName
      * @param faceSetCapacity
-     * @param extFields
      * @return
      * @throws Exception
      */
-    public static CreateFaceSetResult createFaceSet(String faceSetName, int faceSetCapacity, Map<String, FieldType> extFields) throws Exception{
-        CreateExternalFields externalFields = new CreateExternalFields();
-        if(extFields != null && !extFields.isEmpty()){
-            extFields.forEach((key,value) -> externalFields.addField(key,value));
-        }
-        CreateFaceSetResult createFaceSetResult = frsClient.getFaceSetService().createFaceSet(faceSetName, faceSetCapacity, externalFields);
+    public static CreateFaceSetResult createFaceSet(String faceSetName, int faceSetCapacity) throws Exception{
+        CreateFaceSetResult createFaceSetResult = frsClient.getFaceSetService().createFaceSet(faceSetName, faceSetCapacity);
         return createFaceSetResult;
+    }
+
+
+    /**
+     * 删除人脸库
+     * @param faceSetName
+     * @return
+     * @throws Exception
+     */
+    public static DeleteFaceSetResult deleteFaceSet(String faceSetName) throws Exception {
+        DeleteFaceSetResult result = frsClient.getFaceSetService().deleteFaceSet(faceSetName);
+        return result;
     }
 
     /**
@@ -79,6 +81,18 @@ public class FrsUtil {
      */
     public static CompareFaceResult compareFace(String sourceFace,String disFace) throws Exception{
         CompareFaceResult result = frsClient.getCompareService().compareFaceByObsUrl(sourceFace, disFace);
+        return result;
+    }
+
+
+    /**
+     *
+     * @param faceSetName
+     * @param obsUrl
+     * @return
+     */
+    public static SearchFaceResult searchFace(String faceSetName,String obsUrl) throws Exception{
+        SearchFaceResult result = frsClient.getSearchService().searchFaceByObsUrl(faceSetName, obsUrl);
         return result;
     }
 

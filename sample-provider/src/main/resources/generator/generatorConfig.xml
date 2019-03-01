@@ -45,9 +45,9 @@
 
 
         <!-- 人脸库表 -->
-        <table tableName="face_set" domainObjectName="FaceSet" enableSelectByPrimaryKey="true">
-            <generatedKey column="id" sqlStatement="MYSQL" identity="true" />
-        </table>
+        <!--<table tableName="face_set" domainObjectName="FaceSet" enableSelectByPrimaryKey="true">-->
+            <!--<generatedKey column="id" sqlStatement="MYSQL" identity="true" />-->
+        <!--</table>-->
 
         <!-- 人脸库信息表 -->
         <table tableName="face_info" domainObjectName="FaceInfo" enableSelectByPrimaryKey="true">
@@ -55,8 +55,13 @@
         </table>
 
 
+        <!--&lt;!&ndash; 人脸库抓拍历史表 &ndash;&gt;-->
+        <!--<table tableName="base_obs" domainObjectName="BaseObs" enableSelectByPrimaryKey="true">-->
+            <!--<generatedKey column="id" sqlStatement="MYSQL" identity="true" />-->
+        <!--</table>-->
+
         <!-- 人脸库抓拍历史表 -->
-        <table tableName="base_obs" domainObjectName="BaseObs" enableSelectByPrimaryKey="true">
+        <table tableName="face_his" domainObjectName="FaceHis" enableSelectByPrimaryKey="true">
             <generatedKey column="id" sqlStatement="MYSQL" identity="true" />
         </table>
 

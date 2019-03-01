@@ -38,12 +38,45 @@ public class OBSUtil {
 
     /**
      * 创建存储对象的桶
+     * @param bucketName 桶名称
+     * @param acl 桶的访问权限
+     * @param classEnum 设置桶的存储类别（标准存储，低频访问存储，归档存储）
+     * @return
+     */
+    public static ObsBucket createBucket(String bucketName,AccessControlList acl,StorageClassEnum classEnum){
+        ObsBucket obsBucket = new ObsBucket();
+        obsBucket.setBucketName(bucketName);
+        obsBucket.setAcl(acl);
+        obsBucket.setBucketStorageClass(classEnum);
+        return obsClient.createBucket(obsBucket);
+    }
+
+
+    /**
+     * 创建标准存储模式的桶
+     * @param bucketName
+     * @param acl
+     * @return
+     */
+    public static ObsBucket createBucket(String bucketName,AccessControlList acl){
+        ObsBucket obsBucket = new ObsBucket();
+        obsBucket.setBucketName(bucketName);
+        obsBucket.setAcl(acl);
+        obsBucket.setBucketStorageClass(StorageClassEnum.STANDARD);
+        return obsClient.createBucket(obsBucket);
+    }
+
+
+    /**
+     * 创建公共读的桶
      * @param bucketName
      * @return
      */
     public static ObsBucket createBucket(String bucketName){
         ObsBucket obsBucket = new ObsBucket();
         obsBucket.setBucketName(bucketName);
+        obsBucket.setAcl(AccessControlList.REST_CANNED_PUBLIC_READ);
+        obsBucket.setBucketStorageClass(StorageClassEnum.STANDARD);
         return obsClient.createBucket(obsBucket);
     }
 

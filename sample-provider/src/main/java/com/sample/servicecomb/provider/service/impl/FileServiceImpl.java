@@ -33,8 +33,6 @@ public class FileServiceImpl implements FileService {
     private OBSConfiguration obsConfiguration;
     @Resource
     private BaseObsMapper baseObsMapper;
-    @Resource
-    private FaceSetMapper faceSetMapper;
 
     @Override
     public ResponseEntity claimUploadId(String fileName) throws Exception {
@@ -58,10 +56,9 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public ResponseEntity sampleUpload(MultipartFile file,Long faceSetId) throws Exception {
-        FaceSet faceSet = faceSetMapper.selectByPrimaryKey(faceSetId);
+    public ResponseEntity sampleUpload(MultipartFile file) throws Exception {
         OBSUtil.getInstance(obsConfiguration);
-        PutObjectResult result = OBSUtil.putObject(faceSet.getFaceSetName(),file.getOriginalFilename(),file.getInputStream());
+        PutObjectResult result = OBSUtil.putObject(ConstantsUtil.OBS.BUCKET_NAME,file.getOriginalFilename(),file.getInputStream());
         BaseObs baseObs = new BaseObs();
         baseObs.setBucketName(result.getBucketName());
         baseObs.setObjectKey(result.getObjectKey());
