@@ -2,6 +2,7 @@ package com.sample.servicecomb.consumer.rpc;
 
 import com.sample.servicecomb.common.api.IUserController;
 import com.sample.servicecomb.common.bean.User;
+import org.apache.servicecomb.provider.pojo.Invoker;
 import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,11 @@ public class UserRpcClient {
     private IUserController userController;
 
     public User getUserById(Long id){
+        return userController.getUserById(id);
+    }
+
+    public User getUserByIdV1(Long id) {
+        IUserController userController = Invoker.createProxy("provider","userController",IUserController.class);
         return userController.getUserById(id);
     }
 }

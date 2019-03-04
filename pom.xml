@@ -24,7 +24,11 @@
 		<module>sample-consumer</module>
 		<module>sample-common</module>
 		<module>sample-show</module>
-	</modules>
+        <module>sample-config-center</module>
+        <module>sample-config-rest</module>
+		<module>scca-core</module>
+        <module>scca-rest</module>
+    </modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

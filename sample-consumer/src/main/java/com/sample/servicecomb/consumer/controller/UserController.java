@@ -21,6 +21,11 @@ public class UserController {
     @Resource
     private UserRpcClient userRpcClient;
 
+    @GetMapping("v1/user/{id}")
+    public User getUserByIdV1(@PathVariable Long id) {
+        return userRpcClient.getUserByIdV1(id);
+    }
+
     @GetMapping("v2/user/{id}")
     public User getUserByIdV2(@PathVariable Long id) {
         return userRpcClient.getUserById(id);
