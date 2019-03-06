@@ -1,0 +1,11 @@
+server:
+  port: 8112
+spring:
+  application:
+    name: consumer
+  cloud:
+    config:
+      uri: http://localhost:8888
+      profile: dev
+      label: master
+
