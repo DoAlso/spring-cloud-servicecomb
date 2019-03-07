@@ -1,40 +1,44 @@
-package com.sample.servicecomb.provider.utils;
+package com.sample.servicecomb.common.obs;
 
 import com.obs.services.ObsClient;
 import com.obs.services.ObsConfiguration;
 import com.obs.services.exception.ObsException;
 import com.obs.services.model.*;
-import com.sample.servicecomb.provider.configuration.OBSConfiguration;
+import com.sample.servicecomb.common.configuration.ObsConfigurationProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.InputStream;
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
- * @ClassName OBSUtil
+ * @ClassName ObsClientBuilder
  * @Description TODO
- * @Author 胡亚曦
- * @DATE 2019/2/13 9:33
+ * @Author Administrator
+ * @DATE 2019/3/7 15:14
  */
-public class OBSUtil {
-    private static ObsClient obsClient;
+@Component
+public class ObsClientBuilder {
+    public static final Integer HTTP_OK = 200;
+    private ObsClient obsClient;
 
-    /**
-     * 创建ObsClient客户端实例
-     * @return
-     */
-    public static ObsClient getInstance(OBSConfiguration obsConfiguration){
+    @Autowired
+    private ObsConfigurationProperties properties;
+
+    public ObsClient bulid(){
         if (obsClient == null) {
-            synchronized (OBSUtil.class) {
+            synchronized (ObsClientBuilder.class) {
                 if (obsClient == null) {
-                    obsClient = createObsClient(obsConfiguration);
+                    obsClient = createObsClient();
                 }
             }
         }
         return obsClient;
     }
-
 
     /**
      * 创建存储对象的桶
@@ -43,7 +47,7 @@ public class OBSUtil {
      * @param classEnum 设置桶的存储类别（标准存储，低频访问存储，归档存储）
      * @return
      */
-    public static ObsBucket createBucket(String bucketName,AccessControlList acl,StorageClassEnum classEnum){
+    public ObsBucket createBucket(String bucketName, AccessControlList acl, StorageClassEnum classEnum){
         ObsBucket obsBucket = new ObsBucket();
         obsBucket.setBucketName(bucketName);
         obsBucket.setAcl(acl);
@@ -58,7 +62,7 @@ public class OBSUtil {
      * @param acl
      * @return
      */
-    public static ObsBucket createBucket(String bucketName,AccessControlList acl){
+    public ObsBucket createBucket(String bucketName,AccessControlList acl){
         ObsBucket obsBucket = new ObsBucket();
         obsBucket.setBucketName(bucketName);
         obsBucket.setAcl(acl);
@@ -72,7 +76,7 @@ public class OBSUtil {
      * @param bucketName
      * @return
      */
-    public static ObsBucket createBucket(String bucketName){
+    public ObsBucket createBucket(String bucketName){
         ObsBucket obsBucket = new ObsBucket();
         obsBucket.setBucketName(bucketName);
         obsBucket.setAcl(AccessControlList.REST_CANNED_PUBLIC_READ);
@@ -91,7 +95,7 @@ public class OBSUtil {
      * @return
      * @throws Exception
      */
-    public static PutObjectResult putObject(String bucketName, String objectKey, File file, ObjectMetadata metadata) throws Exception {
+    public PutObjectResult putObject(String bucketName, String objectKey, File file, ObjectMetadata metadata) throws Exception {
         return obsClient.putObject(bucketName, objectKey, file, metadata);
     }
 
@@ -104,7 +108,7 @@ public class OBSUtil {
      * @return
      * @throws Exception
      */
-    public static PutObjectResult putObject(String bucketName, String objectKey, File file) throws Exception {
+    public PutObjectResult putObject(String bucketName, String objectKey, File file) throws Exception {
         return obsClient.putObject(bucketName, objectKey, file);
     }
 
@@ -116,7 +120,7 @@ public class OBSUtil {
      * @return
      * @throws Exception
      */
-    public static PutObjectResult putObject(String bucketName, String objectKey, InputStream inputStream, ObjectMetadata metadata) throws Exception {
+    public PutObjectResult putObject(String bucketName, String objectKey, InputStream inputStream, ObjectMetadata metadata) throws Exception {
         return obsClient.putObject(bucketName, objectKey, inputStream, metadata);
     }
 
@@ -127,7 +131,7 @@ public class OBSUtil {
      * @return
      * @throws Exception
      */
-    public static PutObjectResult putObject(String bucketName, String objectKey, InputStream inputStream) throws Exception {
+    public PutObjectResult putObject(String bucketName, String objectKey, InputStream inputStream) throws Exception {
         return obsClient.putObject(bucketName, objectKey, inputStream);
     }
 
@@ -136,9 +140,9 @@ public class OBSUtil {
      * 删除存储对象的桶
      * @param bucketName
      */
-    public static boolean deleteBucket(String bucketName){
+    public boolean deleteBucket(String bucketName){
         HeaderResponse response = obsClient.deleteBucket(bucketName);
-        if(response.getStatusCode() == ConstantsUtil.OBS.HTTP_OK){
+        if(response.getStatusCode() == HTTP_OK){
             return true;
         }
         return false;
@@ -151,19 +155,19 @@ public class OBSUtil {
      * @param bucketName
      * @return
      */
-    public static String claimUploadId(String bucketName,String fileName) throws Exception{
+    public String claimUploadId(String bucketName,String fileName) throws Exception{
         InitiateMultipartUploadRequest request = new InitiateMultipartUploadRequest(bucketName, fileName);
         InitiateMultipartUploadResult result = obsClient.initiateMultipartUpload(request);
         return result.getUploadId();
     }
 
 
-    public static PartEtag uploadPart(MultipartFile multipartFile,String bucketName,String fileName,Integer partNum, String uploadId) throws Exception{
+    public PartEtag uploadPart(MultipartFile multipartFile, String bucketName, String fileName, Integer partNum, String uploadId) throws Exception{
         UploadPartResult uploadPartResult = obsClient.uploadPart(bucketName,fileName,uploadId,partNum+1,multipartFile.getInputStream());
         return new PartEtag(uploadPartResult.getEtag(), uploadPartResult.getPartNumber());
     }
 
-    private static void listAllParts(String bucketName,String objectKey,String uploadId) throws ObsException {
+    private void listAllParts(String bucketName,String objectKey,String uploadId) throws ObsException {
         ListPartsRequest listPartsRequest = new ListPartsRequest(bucketName, objectKey, uploadId);
         obsClient.listParts(listPartsRequest);
     }
@@ -175,20 +179,20 @@ public class OBSUtil {
      * @param bucketName
      * @param objectKey
      */
-    public static CompleteMultipartUploadResult completeMultipartUpload(String uploadId, String bucketName, String objectKey,List<PartEtag> partETags) {
+    public CompleteMultipartUploadResult completeMultipartUpload(String uploadId, String bucketName, String objectKey, List<PartEtag> partETags) {
         listAllParts(bucketName, objectKey, uploadId);
-        Collections.sort(partETags,Comparator.comparingInt(PartEtag::getPartNumber));
+        Collections.sort(partETags, Comparator.comparingInt(PartEtag::getPartNumber));
         CompleteMultipartUploadRequest completeMultipartUploadRequest =
                 new CompleteMultipartUploadRequest(bucketName, objectKey, uploadId, partETags);
         return obsClient.completeMultipartUpload(completeMultipartUploadRequest);
     }
 
 
-    private static ObsClient createObsClient(OBSConfiguration obsConfiguration){
+    private ObsClient createObsClient(){
         ObsConfiguration config = new ObsConfiguration();
-        config.setEndPoint(obsConfiguration.getEndPoint());
-        config.setSocketTimeout(obsConfiguration.getSocketTimeout());
-        config.setConnectionTimeout(obsConfiguration.getConnectionTimeout());
-        return new ObsClient(obsConfiguration.getAk(),obsConfiguration.getSk(), config);
+        config.setEndPoint(properties.getEndPoint());
+        config.setSocketTimeout(properties.getSocketTimeout());
+        config.setConnectionTimeout(properties.getConnectionTimeout());
+        return new ObsClient(properties.getAk(),properties.getSk(), config);
     }
 }

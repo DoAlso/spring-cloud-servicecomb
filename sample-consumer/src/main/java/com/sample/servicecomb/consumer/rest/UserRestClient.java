@@ -1,6 +1,6 @@
 package com.sample.servicecomb.consumer.rest;
 
-import com.sample.servicecomb.common.bean.User;
+import com.sample.servicecomb.common.bean.provider.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;

@@ -1,4 +1,4 @@
-package com.sample.servicecomb.provider.utils;
+package com.sample.servicecomb.common.util;
 
 import org.apache.commons.lang3.StringUtils;
 import sun.net.util.IPAddressUtil;
@@ -15,6 +15,7 @@ import java.util.Random;
  * @author huyaxi
  */
 public class CommonUtil {
+    private static final String POINT_SIGN = ".";
     /**
      * 生成当前任务标识task_uuid'
      */
@@ -136,7 +137,7 @@ public class CommonUtil {
         String temp = sf.format(new Date());
         String randomFilename = new StringBuffer(temp)
                 .append(String.valueOf(random > 0 ? random : ( -1) * random))
-                .append(ConstantsUtil.CommonKey.POINT_SIGN)
+                .append(POINT_SIGN)
                 .append(fileExt).toString();
         return randomFilename;
     }

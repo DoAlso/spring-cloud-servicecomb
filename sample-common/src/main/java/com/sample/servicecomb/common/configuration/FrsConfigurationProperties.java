@@ -1,20 +1,22 @@
-package com.sample.servicecomb.provider.configuration;
+package com.sample.servicecomb.common.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * @ClassName DISConfiguration
+ * @ClassName FrsConfigurationProperties
  * @Description TODO
- * @Author Doalso
- * @DATE 2018/11/1 10:16
+ * @Author Administrator
+ * @DATE 2019/3/7 14:39
  */
-@ConfigurationProperties(value = "huawei.dis")
-public class DISConfiguration {
+@ConfigurationProperties(prefix = "huawei.frs")
+public class FrsConfigurationProperties {
     private String region;
     private String endPoint;
     private String accessKey;
     private String secretKey;
+    private String serviceName;
     private String projectId;
+    private String apiVersion;
 
     public String getRegion() {
         return region;
@@ -48,11 +50,27 @@ public class DISConfiguration {
         this.secretKey = secretKey;
     }
 
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
     public String getProjectId() {
         return projectId;
     }
 
     public void setProjectId(String projectId) {
         this.projectId = projectId;
+    }
+
+    public String getApiVersion() {
+        return apiVersion;
+    }
+
+    public void setApiVersion(String apiVersion) {
+        this.apiVersion = apiVersion;
     }
 }

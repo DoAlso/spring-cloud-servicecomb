@@ -1,4 +1,4 @@
-package com.sample.servicecomb.common.bean;
+package com.sample.servicecomb.common.bean.provider;
 
 /**
  * @ClassName Bbox

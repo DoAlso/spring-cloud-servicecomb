@@ -1,34 +1,39 @@
-package com.sample.servicecomb.provider.utils;
+package com.sample.servicecomb.common.frs;
 
 import com.huaweicloud.frs.client.param.AddExternalFields;
 import com.huaweicloud.frs.client.param.AuthInfo;
 import com.huaweicloud.frs.client.param.FieldType;
 import com.huaweicloud.frs.client.result.*;
 import com.huaweicloud.frs.client.service.FrsClient;
-import com.sample.servicecomb.provider.configuration.FrsConfiguration;
+import com.sample.servicecomb.common.configuration.FrsConfigurationProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.Map;
 
 /**
- * @ClassName FrsUtil
+ * @ClassName FrsClientUtil
  * @Description TODO
  * @Author Administrator
- * @DATE 2019/2/26 9:41
+ * @DATE 2019/3/7 14:51
  */
-public class FrsUtil {
+@Component
+public class FrsClientBuilder {
+    private FrsClient frsClient;
 
-    private static FrsClient frsClient;
+    @Autowired
+    private FrsConfigurationProperties properties;
 
-    public static FrsClient getInstance(FrsConfiguration frsConfiguration){
+    public FrsClient bulid(){
         if (frsClient == null) {
-            synchronized (OBSUtil.class) {
+            synchronized (FrsClientBuilder.class) {
                 if (frsClient == null) {
-                    frsClient = createFrsClient(frsConfiguration);
+                    frsClient = createFrsClient();
                 }
             }
         }
         return frsClient;
     }
-
 
     /**
      * 创建人脸库
@@ -37,7 +42,7 @@ public class FrsUtil {
      * @return
      * @throws Exception
      */
-    public static CreateFaceSetResult createFaceSet(String faceSetName, int faceSetCapacity) throws Exception{
+    public CreateFaceSetResult createFaceSet(String faceSetName, int faceSetCapacity) throws Exception{
         CreateFaceSetResult createFaceSetResult = frsClient.getFaceSetService().createFaceSet(faceSetName, faceSetCapacity);
         return createFaceSetResult;
     }
@@ -49,7 +54,7 @@ public class FrsUtil {
      * @return
      * @throws Exception
      */
-    public static DeleteFaceSetResult deleteFaceSet(String faceSetName) throws Exception {
+    public DeleteFaceSetResult deleteFaceSet(String faceSetName) throws Exception {
         DeleteFaceSetResult result = frsClient.getFaceSetService().deleteFaceSet(faceSetName);
         return result;
     }
@@ -62,7 +67,7 @@ public class FrsUtil {
      * @return
      * @throws Exception
      */
-    public static AddFaceResult addFaceToSet(String faceSetName,String obsUrl,Map<String,FieldType> map) throws Exception{
+    public AddFaceResult addFaceToSet(String faceSetName, String obsUrl, Map<String, FieldType> map) throws Exception{
         AddExternalFields externalFields = new AddExternalFields();
         if(map != null && !map.isEmpty()){
             map.forEach((key,value) -> externalFields.addField(key,value));
@@ -79,7 +84,7 @@ public class FrsUtil {
      * @return
      * @throws Exception
      */
-    public static CompareFaceResult compareFace(String sourceFace,String disFace) throws Exception{
+    public CompareFaceResult compareFace(String sourceFace, String disFace) throws Exception{
         CompareFaceResult result = frsClient.getCompareService().compareFaceByObsUrl(sourceFace, disFace);
         return result;
     }
@@ -91,7 +96,7 @@ public class FrsUtil {
      * @param obsUrl
      * @return
      */
-    public static SearchFaceResult searchFace(String faceSetName,String obsUrl) throws Exception{
+    public SearchFaceResult searchFace(String faceSetName, String obsUrl) throws Exception{
         SearchFaceResult result = frsClient.getSearchService().searchFaceByObsUrl(faceSetName, obsUrl);
         return result;
     }
@@ -103,18 +108,17 @@ public class FrsUtil {
      * @return
      * @throws Exception
      */
-    public static DetectFaceResult detectFace(String obsUrl,String attr) throws Exception {
+    public DetectFaceResult detectFace(String obsUrl,String attr) throws Exception {
         DetectFaceResult result = frsClient.getDetectService().detectFaceByObsUrl(obsUrl,attr);
         return result;
     }
 
-    public static FrsClient createFrsClient(FrsConfiguration frsConfiguration){
-        AuthInfo authInfo = new AuthInfo(frsConfiguration.getEndPoint(),
-                frsConfiguration.getRegion(),
-                frsConfiguration.getAccessKey(),
-                frsConfiguration.getSecretKey());
-        FrsClient frsClient = new FrsClient(authInfo,frsConfiguration.getProjectId());
-        System.out.println(frsConfiguration.getProjectId());
+    private FrsClient createFrsClient(){
+        AuthInfo authInfo = new AuthInfo(properties.getEndPoint(),
+                properties.getRegion(),
+                properties.getAccessKey(),
+                properties.getSecretKey());
+        FrsClient frsClient = new FrsClient(authInfo,properties.getProjectId());
         return frsClient;
     }
 }

@@ -1,7 +1,7 @@
 package com.sample.servicecomb.consumer.rpc;
 
-import com.sample.servicecomb.common.api.IUserController;
-import com.sample.servicecomb.common.bean.User;
+import com.sample.servicecomb.common.api.provider.IUserController;
+import com.sample.servicecomb.common.bean.provider.User;
 import org.apache.servicecomb.provider.pojo.Invoker;
 import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.springframework.stereotype.Component;

@@ -1,0 +1,5 @@
+# AutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.sample.servicecomb.common.configuration.DisAutoConfiguration,\
+com.sample.servicecomb.common.configuration.FrsAutoConfiguration,\
+com.sample.servicecomb.common.configuration.ObsAutoConfiguration

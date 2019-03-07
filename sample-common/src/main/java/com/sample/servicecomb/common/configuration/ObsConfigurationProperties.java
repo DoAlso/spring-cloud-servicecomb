@@ -1,15 +1,15 @@
-package com.sample.servicecomb.provider.configuration;
+package com.sample.servicecomb.common.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * @ClassName OBSConfiguration
+ * @ClassName ObsConfigurationProperties
  * @Description TODO
- * @Author 胡亚曦
- * @DATE 2019/2/13 9:55
+ * @Author Administrator
+ * @DATE 2019/3/7 15:12
  */
 @ConfigurationProperties(value = "huawei.obs")
-public class OBSConfiguration {
+public class ObsConfigurationProperties {
     private String endPoint;
     private Integer socketTimeout;
     private Integer connectionTimeout;

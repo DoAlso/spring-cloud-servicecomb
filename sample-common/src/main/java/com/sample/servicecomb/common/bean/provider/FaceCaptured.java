@@ -1,4 +1,6 @@
-package com.sample.servicecomb.common.bean;
+package com.sample.servicecomb.common.bean.provider;
+
+import com.sample.servicecomb.common.bean.provider.Bbox;
 
 /**
  * @ClassName FaceCaptured

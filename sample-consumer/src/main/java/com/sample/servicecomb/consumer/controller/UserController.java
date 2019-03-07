@@ -1,6 +1,6 @@
 package com.sample.servicecomb.consumer.controller;
 
-import com.sample.servicecomb.common.bean.User;
+import com.sample.servicecomb.common.bean.provider.User;
 import com.sample.servicecomb.consumer.rest.UserRestClient;
 import com.sample.servicecomb.consumer.rpc.UserRpcClient;
 import org.apache.servicecomb.provider.rest.common.RestSchema;

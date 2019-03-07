@@ -2,17 +2,13 @@ package com.sample.servicecomb.provider.service.impl;
 
 import com.obs.services.model.*;
 import com.sample.servicecomb.common.bean.ResponseEntity;
+import com.sample.servicecomb.common.obs.ObsClientBuilder;
 import com.sample.servicecomb.common.util.ResponseEntityUtil;
-import com.sample.servicecomb.provider.configuration.OBSConfiguration;
 import com.sample.servicecomb.provider.dao.BaseObsMapper;
-import com.sample.servicecomb.provider.dao.FaceSetMapper;
 import com.sample.servicecomb.provider.model.BaseObs;
-import com.sample.servicecomb.provider.model.FaceSet;
 import com.sample.servicecomb.provider.model.req.CreateBucketReq;
 import com.sample.servicecomb.provider.service.FileService;
 import com.sample.servicecomb.provider.utils.ConstantsUtil;
-import com.sample.servicecomb.provider.utils.OBSUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,36 +25,36 @@ import java.util.List;
 @Service
 public class FileServiceImpl implements FileService {
 
-    @Autowired
-    private OBSConfiguration obsConfiguration;
+    @Resource
+    private ObsClientBuilder obsClientBuilder;
     @Resource
     private BaseObsMapper baseObsMapper;
 
     @Override
     public ResponseEntity claimUploadId(String fileName) throws Exception {
-        OBSUtil.getInstance(obsConfiguration);
-        String claimUploadId = OBSUtil.claimUploadId(ConstantsUtil.OBS.BUCKET_NAME,fileName);
+        obsClientBuilder.bulid();
+        String claimUploadId = obsClientBuilder.claimUploadId(ConstantsUtil.OBS.BUCKET_NAME,fileName);
         return ResponseEntityUtil.response("ok","0000",claimUploadId);
     }
 
     @Override
     public ResponseEntity upload(MultipartFile multipartFile,String fileName,Integer partNum, String uploadId) throws Exception{
-        OBSUtil.getInstance(obsConfiguration);
-        PartEtag partEtag = OBSUtil.uploadPart(multipartFile,ConstantsUtil.OBS.BUCKET_NAME,fileName,partNum,uploadId);
+        obsClientBuilder.bulid();
+        PartEtag partEtag = obsClientBuilder.uploadPart(multipartFile,ConstantsUtil.OBS.BUCKET_NAME,fileName,partNum,uploadId);
         return ResponseEntityUtil.response("ok","0000",partEtag);
     }
 
     @Override
     public ResponseEntity completeMultipartUpload(String uploadId, String objectKey, List<PartEtag> partETags) throws Exception {
-        OBSUtil.getInstance(obsConfiguration);
-        CompleteMultipartUploadResult uploadResult = OBSUtil.completeMultipartUpload(uploadId,ConstantsUtil.OBS.BUCKET_NAME,objectKey,partETags);
+        obsClientBuilder.bulid();
+        CompleteMultipartUploadResult uploadResult = obsClientBuilder.completeMultipartUpload(uploadId,ConstantsUtil.OBS.BUCKET_NAME,objectKey,partETags);
         return ResponseEntityUtil.response("ok","0000",uploadResult);
     }
 
     @Override
     public ResponseEntity sampleUpload(MultipartFile file) throws Exception {
-        OBSUtil.getInstance(obsConfiguration);
-        PutObjectResult result = OBSUtil.putObject(ConstantsUtil.OBS.BUCKET_NAME,file.getOriginalFilename(),file.getInputStream());
+        obsClientBuilder.bulid();
+        PutObjectResult result = obsClientBuilder.putObject(ConstantsUtil.OBS.BUCKET_NAME,file.getOriginalFilename(),file.getInputStream());
         BaseObs baseObs = new BaseObs();
         baseObs.setBucketName(result.getBucketName());
         baseObs.setObjectKey(result.getObjectKey());
@@ -78,8 +74,8 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public ResponseEntity createBucket(CreateBucketReq createBucketReq) throws Exception {
-        OBSUtil.getInstance(obsConfiguration);
-        ObsBucket bucket = OBSUtil.createBucket(createBucketReq.getBucketName());
+        obsClientBuilder.bulid();
+        ObsBucket bucket = obsClientBuilder.createBucket(createBucketReq.getBucketName());
         return ResponseEntityUtil.response("ok","0000",bucket);
     }
 }
