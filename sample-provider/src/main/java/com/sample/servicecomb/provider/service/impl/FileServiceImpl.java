@@ -2,7 +2,7 @@ package com.sample.servicecomb.provider.service.impl;
 
 import com.obs.services.model.*;
 import com.sample.servicecomb.common.bean.ResponseEntity;
-import com.sample.servicecomb.common.obs.ObsClientBuilder;
+import com.sample.servicecomb.common.obs.ObsClientUtil;
 import com.sample.servicecomb.common.util.ResponseEntityUtil;
 import com.sample.servicecomb.provider.dao.BaseObsMapper;
 import com.sample.servicecomb.provider.model.BaseObs;
@@ -26,34 +26,30 @@ import java.util.List;
 public class FileServiceImpl implements FileService {
 
     @Resource
-    private ObsClientBuilder obsClientBuilder;
+    private ObsClientUtil obsClientBuilder;
     @Resource
     private BaseObsMapper baseObsMapper;
 
     @Override
     public ResponseEntity claimUploadId(String fileName) throws Exception {
-        obsClientBuilder.bulid();
         String claimUploadId = obsClientBuilder.claimUploadId(ConstantsUtil.OBS.BUCKET_NAME,fileName);
         return ResponseEntityUtil.response("ok","0000",claimUploadId);
     }
 
     @Override
     public ResponseEntity upload(MultipartFile multipartFile,String fileName,Integer partNum, String uploadId) throws Exception{
-        obsClientBuilder.bulid();
         PartEtag partEtag = obsClientBuilder.uploadPart(multipartFile,ConstantsUtil.OBS.BUCKET_NAME,fileName,partNum,uploadId);
         return ResponseEntityUtil.response("ok","0000",partEtag);
     }
 
     @Override
     public ResponseEntity completeMultipartUpload(String uploadId, String objectKey, List<PartEtag> partETags) throws Exception {
-        obsClientBuilder.bulid();
         CompleteMultipartUploadResult uploadResult = obsClientBuilder.completeMultipartUpload(uploadId,ConstantsUtil.OBS.BUCKET_NAME,objectKey,partETags);
         return ResponseEntityUtil.response("ok","0000",uploadResult);
     }
 
     @Override
     public ResponseEntity sampleUpload(MultipartFile file) throws Exception {
-        obsClientBuilder.bulid();
         PutObjectResult result = obsClientBuilder.putObject(ConstantsUtil.OBS.BUCKET_NAME,file.getOriginalFilename(),file.getInputStream());
         BaseObs baseObs = new BaseObs();
         baseObs.setBucketName(result.getBucketName());
@@ -74,7 +70,6 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public ResponseEntity createBucket(CreateBucketReq createBucketReq) throws Exception {
-        obsClientBuilder.bulid();
         ObsBucket bucket = obsClientBuilder.createBucket(createBucketReq.getBucketName());
         return ResponseEntityUtil.response("ok","0000",bucket);
     }

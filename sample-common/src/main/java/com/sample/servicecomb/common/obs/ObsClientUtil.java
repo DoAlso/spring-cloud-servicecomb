@@ -5,8 +5,6 @@ import com.obs.services.ObsConfiguration;
 import com.obs.services.exception.ObsException;
 import com.obs.services.model.*;
 import com.sample.servicecomb.common.configuration.ObsConfigurationProperties;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -21,17 +19,13 @@ import java.util.List;
  * @Author Administrator
  * @DATE 2019/3/7 15:14
  */
-@Component
-public class ObsClientBuilder {
-    public static final Integer HTTP_OK = 200;
+public class ObsClientUtil {
+    public final Integer HTTP_OK = 200;
     private ObsClient obsClient;
-
-    @Autowired
-    private ObsConfigurationProperties properties;
-
-    public ObsClient bulid(){
+    private ObsConfigurationProperties ObsProperties;
+    public ObsClient getInstance(){
         if (obsClient == null) {
-            synchronized (ObsClientBuilder.class) {
+            synchronized (ObsClientUtil.class) {
                 if (obsClient == null) {
                     obsClient = createObsClient();
                 }
@@ -190,9 +184,13 @@ public class ObsClientBuilder {
 
     private ObsClient createObsClient(){
         ObsConfiguration config = new ObsConfiguration();
-        config.setEndPoint(properties.getEndPoint());
-        config.setSocketTimeout(properties.getSocketTimeout());
-        config.setConnectionTimeout(properties.getConnectionTimeout());
-        return new ObsClient(properties.getAk(),properties.getSk(), config);
+        config.setEndPoint(ObsProperties.getEndPoint());
+        config.setSocketTimeout(ObsProperties.getSocketTimeout());
+        config.setConnectionTimeout(ObsProperties.getConnectionTimeout());
+        return new ObsClient(ObsProperties.getAk(),ObsProperties.getSk(), config);
+    }
+
+    public void setObsProperties(ObsConfigurationProperties obsProperties) {
+        ObsProperties = obsProperties;
     }
 }

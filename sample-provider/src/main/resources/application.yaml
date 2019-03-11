@@ -70,6 +70,7 @@ huawei:
     region: cn-north-1
     end-point: https://dis.cn-north-1.myhuaweicloud.com:20004
     project-id: 3c9ff3e423154e03bb8d65cfc5ae0d67
+    partition-id: 0
   frs:
     access-key: 3TWL7VJQ4IM45X3DAMLF
     secret-key: i1aCblcgP4ZyoUwBHZnWd4rJCb5skN2Ya0LzSix5

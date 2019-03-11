@@ -6,8 +6,9 @@ import com.huaweicloud.frs.client.result.common.ComplexFace;
 import com.obs.services.model.PutObjectResult;
 import com.sample.servicecomb.common.bean.provider.FaceCaptured;
 import com.sample.servicecomb.common.bean.ResponseEntity;
-import com.sample.servicecomb.common.frs.FrsClientBuilder;
-import com.sample.servicecomb.common.obs.ObsClientBuilder;
+import com.sample.servicecomb.common.dis.DisRecordHandler;
+import com.sample.servicecomb.common.frs.FrsClientUtil;
+import com.sample.servicecomb.common.obs.ObsClientUtil;
 import com.sample.servicecomb.common.util.CommonUtil;
 import com.sample.servicecomb.common.util.FastJsonUtil;
 import com.sample.servicecomb.common.util.ImageBase64Util;
@@ -38,7 +39,7 @@ import java.util.List;
  * @DATE 2019/2/26 15:21
  */
 @Service
-public class FaceServiceImpl implements FaceService {
+public class FaceServiceImpl implements FaceService, DisRecordHandler {
     @Resource
     private FaceHisMapper faceHisMapper;
     @Resource
@@ -46,11 +47,26 @@ public class FaceServiceImpl implements FaceService {
     @Resource
     private FaceSetMapper faceSetMapper;
     @Resource
-    private FrsClientBuilder frsClientBuilder;
+    private FrsClientUtil frsClientBuilder;
     @Resource
-    private ObsClientBuilder obsClientBuilder;
+    private ObsClientUtil obsClientBuilder;
+
     @Override
-    public void faceCapture(String streamName, Record record) throws Exception {
+    public void handler(Record record) {
+        try {
+            faceCapture("dis-face", record);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 记录人脸抓拍历史
+     * @param streamName
+     * @param record
+     * @throws Exception
+     */
+    private void faceCapture(String streamName, Record record) throws Exception {
         FaceCaptured faceCaptured = FastJsonUtil.toBean(new String(record.getData().array()), FaceCaptured.class);
         //拼接文件名
         String path = new StringBuilder()
@@ -62,7 +78,6 @@ public class FaceServiceImpl implements FaceService {
         String objectKey = new StringBuilder(path).append(fileName).toString();
         if(StringUtils.isNotBlank(faceCaptured.getFace_id())){
             //端测小图拿来进行人脸识别
-            frsClientBuilder.bulid();
             PutObjectResult objectResult = faceUploadOBS(faceCaptured.getCamera_id(),objectKey,fileName,"jpg",faceCaptured.getImage_data());
             DetectFaceResult detectFaceResult = frsClientBuilder.detectFace("/"+objectResult.getBucketName()+"/"+objectResult.getObjectKey(),"1,2,4,5");
             AddFaceResult addFaceResult = frsClientBuilder.addFaceToSet("hoolink-face-his","/"+objectResult.getBucketName()+"/"+objectResult.getObjectKey(),null);
@@ -99,7 +114,6 @@ public class FaceServiceImpl implements FaceService {
 
     @Override
     public ResponseEntity createVipFace(CreateFaceReq createFaceReq) throws Exception {
-        frsClientBuilder.bulid();
         AddFaceResult result = frsClientBuilder.addFaceToSet(createFaceReq.getFaceSetName(),createFaceReq.getObsUrl(),null);
         FaceInfo faceInfo = createFaceReq.getFaceInfo();
         faceInfo.setFaceLabelId(result.getFaces().get(0).getFaceId());
@@ -109,7 +123,6 @@ public class FaceServiceImpl implements FaceService {
 
     @Override
     public ResponseEntity createFaceSet(CreateFaceSetReq createFaceSetReq) throws Exception {
-        frsClientBuilder.bulid();
         CreateFaceSetResult result = frsClientBuilder.createFaceSet(createFaceSetReq.getFaceSetName(),createFaceSetReq.getFaceSetCapacity());
         FaceSet faceSet = new FaceSet();
         faceSet.setFaceSetName(result.getFaceSetInfo().getFaceSetName());
@@ -122,13 +135,11 @@ public class FaceServiceImpl implements FaceService {
 
     @Override
     public ResponseEntity deleteFaceSet(String faceSetName) throws Exception {
-        frsClientBuilder.bulid();
         DeleteFaceSetResult result = frsClientBuilder.deleteFaceSet(faceSetName);
         return ResponseEntityUtil.response("ok","000000",result);
     }
 
     private PutObjectResult faceUploadOBS(String deviceId, String objectKey, String fileName, String extName, String base64) throws Exception {
-        obsClientBuilder.bulid();
         MultipartFile multipartFile = ImageBase64Util.builder().base64ToMultipart(base64);
         PutObjectResult result = obsClientBuilder.putObject(ConstantsUtil.OBS.BUCKET_NAME, objectKey,multipartFile.getInputStream());
         return result;

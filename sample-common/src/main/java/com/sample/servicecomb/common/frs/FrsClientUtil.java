@@ -6,8 +6,6 @@ import com.huaweicloud.frs.client.param.FieldType;
 import com.huaweicloud.frs.client.result.*;
 import com.huaweicloud.frs.client.service.FrsClient;
 import com.sample.servicecomb.common.configuration.FrsConfigurationProperties;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
@@ -17,16 +15,12 @@ import java.util.Map;
  * @Author Administrator
  * @DATE 2019/3/7 14:51
  */
-@Component
-public class FrsClientBuilder {
+public class FrsClientUtil {
     private FrsClient frsClient;
-
-    @Autowired
-    private FrsConfigurationProperties properties;
-
-    public FrsClient bulid(){
+    private FrsConfigurationProperties frsProperties;
+    public FrsClient getInstance(){
         if (frsClient == null) {
-            synchronized (FrsClientBuilder.class) {
+            synchronized (FrsClientUtil.class) {
                 if (frsClient == null) {
                     frsClient = createFrsClient();
                 }
@@ -114,11 +108,15 @@ public class FrsClientBuilder {
     }
 
     private FrsClient createFrsClient(){
-        AuthInfo authInfo = new AuthInfo(properties.getEndPoint(),
-                properties.getRegion(),
-                properties.getAccessKey(),
-                properties.getSecretKey());
-        FrsClient frsClient = new FrsClient(authInfo,properties.getProjectId());
+        AuthInfo authInfo = new AuthInfo(frsProperties.getEndPoint(),
+                frsProperties.getRegion(),
+                frsProperties.getAccessKey(),
+                frsProperties.getSecretKey());
+        FrsClient frsClient = new FrsClient(authInfo,frsProperties.getProjectId());
         return frsClient;
+    }
+
+    public void setFrsProperties(FrsConfigurationProperties frsProperties) {
+        this.frsProperties = frsProperties;
     }
 }
