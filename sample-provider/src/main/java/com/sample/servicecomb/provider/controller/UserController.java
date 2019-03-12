@@ -1,9 +1,11 @@
 package com.sample.servicecomb.provider.controller;
 
-import com.sample.servicecomb.common.api.provider.IUserController;
+import com.sample.servicecomb.api.provider.IUserController;
+import com.sample.servicecomb.api.provider.bo.UserBO;
+import com.sample.servicecomb.provider.model.bean.User;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
-import com.sample.servicecomb.common.bean.provider.User;
 /**
  * @ClassName UserController
  * @Description TODO
@@ -17,24 +19,28 @@ public class UserController implements IUserController {
 
     @GetMapping("/user/{id}")
     @Override
-    public User getUserById(@PathVariable Long id){
+    public UserBO getUserById(@PathVariable Long id){
+        UserBO userBO = new UserBO();
         User user = new User();
         user.setUserId(id);
         user.setUsername("胡亚曦");
         user.setAccount("admin");
         user.setPassword("123456");
-        return user;
+        BeanUtils.copyProperties(user,userBO);
+        return userBO;
     }
 
     @GetMapping("/login")
-    public User login(String account,String password){
+    public UserBO login(String account, String password){
         if("admin".equals(account) && "123456".equals(password)){
+            UserBO userBO = new UserBO();
             User user = new User();
             user.setUserId(1L);
             user.setUsername("胡亚曦");
             user.setAccount("admin");
             user.setPassword("123456");
-            return user;
+            BeanUtils.copyProperties(user,userBO);
+            return userBO;
         }
         return null;
     }

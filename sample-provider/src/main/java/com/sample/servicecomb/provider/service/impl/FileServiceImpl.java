@@ -1,12 +1,12 @@
 package com.sample.servicecomb.provider.service.impl;
 
 import com.obs.services.model.*;
-import com.sample.servicecomb.common.bean.ResponseEntity;
+import com.sample.servicecomb.api.common.ResponseEntity;
+import com.sample.servicecomb.api.common.ResponseEntityUtil;
 import com.sample.servicecomb.common.obs.ObsClientUtil;
-import com.sample.servicecomb.common.util.ResponseEntityUtil;
 import com.sample.servicecomb.provider.dao.BaseObsMapper;
 import com.sample.servicecomb.provider.model.BaseObs;
-import com.sample.servicecomb.provider.model.req.CreateBucketReq;
+import com.sample.servicecomb.provider.model.vo.CreateBucketVO;
 import com.sample.servicecomb.provider.service.FileService;
 import com.sample.servicecomb.provider.utils.ConstantsUtil;
 import org.springframework.stereotype.Service;
@@ -69,7 +69,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public ResponseEntity createBucket(CreateBucketReq createBucketReq) throws Exception {
+    public ResponseEntity createBucket(CreateBucketVO createBucketReq) throws Exception {
         ObsBucket bucket = obsClientBuilder.createBucket(createBucketReq.getBucketName());
         return ResponseEntityUtil.response("ok","0000",bucket);
     }

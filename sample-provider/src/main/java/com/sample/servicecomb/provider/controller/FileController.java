@@ -1,11 +1,9 @@
 package com.sample.servicecomb.provider.controller;
 
-import com.obs.services.model.CompleteMultipartUploadResult;
-import com.obs.services.model.PartEtag;
-import com.sample.servicecomb.common.bean.ResponseEntity;
-import com.sample.servicecomb.provider.model.req.CompleteMultipartReq;
-import com.sample.servicecomb.provider.model.req.CreateBucketReq;
-import com.sample.servicecomb.provider.model.req.FileReq;
+import com.sample.servicecomb.api.common.ResponseEntity;
+import com.sample.servicecomb.provider.model.vo.CompleteMultipartVO;
+import com.sample.servicecomb.provider.model.vo.CreateBucketVO;
+import com.sample.servicecomb.provider.model.vo.FileVO;
 import com.sample.servicecomb.provider.service.FileService;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +27,7 @@ public class FileController {
     private FileService fileService;
 
     @PostMapping(value = "/claimUploadId")
-    public ResponseEntity claimUploadId(@RequestBody FileReq fileReq) throws Exception {
+    public ResponseEntity claimUploadId(@RequestBody FileVO fileReq) throws Exception {
         return fileService.claimUploadId(fileReq.getFileName());
     }
 
@@ -39,7 +37,7 @@ public class FileController {
     }
 
     @PostMapping(value = "/completeMultipartUpload")
-    public ResponseEntity completeMultipartUpload(@RequestBody CompleteMultipartReq completeMultipartReq) throws Exception {
+    public ResponseEntity completeMultipartUpload(@RequestBody CompleteMultipartVO completeMultipartReq) throws Exception {
         return fileService.completeMultipartUpload(completeMultipartReq.getUploadId(),completeMultipartReq.getFileName(),completeMultipartReq.getPartETags());
     }
 
@@ -51,7 +49,7 @@ public class FileController {
 
 
     @PostMapping(value = "/createBucket")
-    public ResponseEntity createBucket(@RequestBody CreateBucketReq createBucketReq) throws Exception {
+    public ResponseEntity createBucket(@RequestBody CreateBucketVO createBucketReq) throws Exception {
         return fileService.createBucket(createBucketReq);
     }
 }

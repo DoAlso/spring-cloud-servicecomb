@@ -1,8 +1,8 @@
 package com.sample.servicecomb.provider.service;
 
-import com.sample.servicecomb.common.bean.ResponseEntity;
-import com.sample.servicecomb.provider.model.req.CreateFaceReq;
-import com.sample.servicecomb.provider.model.req.CreateFaceSetReq;
+import com.sample.servicecomb.api.common.ResponseEntity;
+import com.sample.servicecomb.provider.model.vo.CreateFaceSetVO;
+import com.sample.servicecomb.provider.model.vo.CreateFaceVO;
 
 public interface FaceService {
 
@@ -11,7 +11,7 @@ public interface FaceService {
      * @return
      * @throws Exception
      */
-    ResponseEntity createVipFace(CreateFaceReq createFaceReq) throws Exception;
+    ResponseEntity createVipFace(CreateFaceVO createFaceReq) throws Exception;
 
 
     /**
@@ -19,7 +19,7 @@ public interface FaceService {
      * @return
      * @throws Exception
      */
-    ResponseEntity createFaceSet(CreateFaceSetReq createFaceSetReq) throws Exception;
+    ResponseEntity createFaceSet(CreateFaceSetVO createFaceSetReq) throws Exception;
 
 
 

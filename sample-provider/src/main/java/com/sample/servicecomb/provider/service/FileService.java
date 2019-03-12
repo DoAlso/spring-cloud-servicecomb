@@ -1,7 +1,7 @@
 package com.sample.servicecomb.provider.service;
 import com.obs.services.model.PartEtag;
-import com.sample.servicecomb.common.bean.ResponseEntity;
-import com.sample.servicecomb.provider.model.req.CreateBucketReq;
+import com.sample.servicecomb.api.common.ResponseEntity;
+import com.sample.servicecomb.provider.model.vo.CreateBucketVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -54,5 +54,5 @@ public interface FileService {
      * @return
      * @throws Exception
      */
-    ResponseEntity createBucket(CreateBucketReq createBucketReq) throws Exception;
+    ResponseEntity createBucket(CreateBucketVO createBucketReq) throws Exception;
 }

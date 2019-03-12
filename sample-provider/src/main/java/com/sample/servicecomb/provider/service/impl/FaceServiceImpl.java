@@ -4,15 +4,14 @@ import com.huaweicloud.dis.iface.data.response.Record;
 import com.huaweicloud.frs.client.result.*;
 import com.huaweicloud.frs.client.result.common.ComplexFace;
 import com.obs.services.model.PutObjectResult;
-import com.sample.servicecomb.common.bean.provider.FaceCaptured;
-import com.sample.servicecomb.common.bean.ResponseEntity;
+import com.sample.servicecomb.api.common.ResponseEntity;
+import com.sample.servicecomb.api.common.ResponseEntityUtil;
 import com.sample.servicecomb.common.dis.DisRecordHandler;
 import com.sample.servicecomb.common.frs.FrsClientUtil;
 import com.sample.servicecomb.common.obs.ObsClientUtil;
 import com.sample.servicecomb.common.util.CommonUtil;
 import com.sample.servicecomb.common.util.FastJsonUtil;
 import com.sample.servicecomb.common.util.ImageBase64Util;
-import com.sample.servicecomb.common.util.ResponseEntityUtil;
 import com.sample.servicecomb.provider.dao.FaceHisMapper;
 import com.sample.servicecomb.provider.dao.FaceInfoMapper;
 import com.sample.servicecomb.provider.dao.FaceSetMapper;
@@ -20,8 +19,9 @@ import com.sample.servicecomb.provider.model.FaceHis;
 import com.sample.servicecomb.provider.model.FaceInfo;
 import com.sample.servicecomb.provider.model.FaceInfoExample;
 import com.sample.servicecomb.provider.model.FaceSet;
-import com.sample.servicecomb.provider.model.req.CreateFaceReq;
-import com.sample.servicecomb.provider.model.req.CreateFaceSetReq;
+import com.sample.servicecomb.provider.model.bean.FaceCaptured;
+import com.sample.servicecomb.provider.model.vo.CreateFaceSetVO;
+import com.sample.servicecomb.provider.model.vo.CreateFaceVO;
 import com.sample.servicecomb.provider.service.FaceService;
 import com.sample.servicecomb.provider.utils.*;
 import org.apache.commons.lang3.StringUtils;
@@ -113,7 +113,7 @@ public class FaceServiceImpl implements FaceService, DisRecordHandler {
     }
 
     @Override
-    public ResponseEntity createVipFace(CreateFaceReq createFaceReq) throws Exception {
+    public ResponseEntity createVipFace(CreateFaceVO createFaceReq) throws Exception {
         AddFaceResult result = frsClientBuilder.addFaceToSet(createFaceReq.getFaceSetName(),createFaceReq.getObsUrl(),null);
         FaceInfo faceInfo = createFaceReq.getFaceInfo();
         faceInfo.setFaceLabelId(result.getFaces().get(0).getFaceId());
@@ -122,7 +122,7 @@ public class FaceServiceImpl implements FaceService, DisRecordHandler {
     }
 
     @Override
-    public ResponseEntity createFaceSet(CreateFaceSetReq createFaceSetReq) throws Exception {
+    public ResponseEntity createFaceSet(CreateFaceSetVO createFaceSetReq) throws Exception {
         CreateFaceSetResult result = frsClientBuilder.createFaceSet(createFaceSetReq.getFaceSetName(),createFaceSetReq.getFaceSetCapacity());
         FaceSet faceSet = new FaceSet();
         faceSet.setFaceSetName(result.getFaceSetInfo().getFaceSetName());

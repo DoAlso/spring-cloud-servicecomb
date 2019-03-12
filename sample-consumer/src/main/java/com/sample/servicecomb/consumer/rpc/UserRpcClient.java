@@ -1,7 +1,7 @@
 package com.sample.servicecomb.consumer.rpc;
 
-import com.sample.servicecomb.common.api.provider.IUserController;
-import com.sample.servicecomb.common.bean.provider.User;
+import com.sample.servicecomb.api.provider.IUserController;
+import com.sample.servicecomb.api.provider.bo.UserBO;
 import org.apache.servicecomb.provider.pojo.Invoker;
 import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.springframework.stereotype.Component;
@@ -18,11 +18,11 @@ public class UserRpcClient {
     @RpcReference(microserviceName = "provider",schemaId = "userController")
     private IUserController userController;
 
-    public User getUserById(Long id){
+    public UserBO getUserById(Long id){
         return userController.getUserById(id);
     }
 
-    public User getUserByIdV1(Long id) {
+    public UserBO getUserByIdV1(Long id) {
         IUserController userController = Invoker.createProxy("provider","userController",IUserController.class);
         return userController.getUserById(id);
     }

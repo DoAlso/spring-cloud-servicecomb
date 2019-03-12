@@ -22,9 +22,10 @@
 		<module>sample-gateway</module>
 		<module>sample-provider</module>
 		<module>sample-consumer</module>
-		<module>sample-common</module>
+		<module>sample-sdk</module>
 		<module>sample-show</module>
-    </modules>
+		<module>sample-api</module>
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
