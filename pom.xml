@@ -42,7 +42,7 @@
 		<!-- 说明：两者的使用方式无法兼容 -->
 		<!-- 当使用cse-solution-spring-cloud进行SpringCloud微服务接入时,微服务的调用采用http协议的原生调用方式 -->
 		<!--<dependency>-->
-			<!--<groupId>com.huawei.paas.cse</groupId>-->
+			<!--<groupId>com.hw.paas.cse</groupId>-->
 			<!--<artifactId>cse-solution-spring-cloud</artifactId>-->
 		<!--</dependency>-->
 		<!-- 当使用cse-solution-service-engine进行SpringCloud的微服务接入时，微服务采用RPC协议和CSE协议方式调用 -->

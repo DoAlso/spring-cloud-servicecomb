@@ -18,6 +18,14 @@ public class TestMain {
         double result = operation.apply(1,2);
         System.out.println(result);
         IntStream.range(0,5).mapToObj(TestMain::createThread).forEach(Thread::start);
+        new Thread(()->{
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            String classLoaderName = classLoader.getClass().getCanonicalName();
+            System.out.println(classLoaderName);
+            ClassLoader parentClassLoader = Thread.currentThread().getContextClassLoader().getParent();
+            String parentClassLoaderName = parentClassLoader.getClass().getCanonicalName();
+            System.out.println(parentClassLoaderName);
+        }).start();
     }
 
     public static Thread createThread(final int intName){

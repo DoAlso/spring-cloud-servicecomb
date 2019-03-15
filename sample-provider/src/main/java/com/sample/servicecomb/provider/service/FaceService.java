@@ -4,6 +4,8 @@ import com.sample.servicecomb.api.common.ResponseEntity;
 import com.sample.servicecomb.provider.model.vo.CreateFaceSetVO;
 import com.sample.servicecomb.provider.model.vo.CreateFaceVO;
 
+import java.util.Map;
+
 public interface FaceService {
 
     /**
@@ -24,4 +26,13 @@ public interface FaceService {
 
 
     ResponseEntity deleteFaceSet(String faceSetName) throws Exception;
+
+
+    /**
+     * 添加辅助人脸
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    ResponseEntity auxiliaryFace(Map<String,Object> map) throws Exception;
 }

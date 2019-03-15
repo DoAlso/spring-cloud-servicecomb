@@ -6,6 +6,12 @@ import com.huaweicloud.frs.client.param.FieldType;
 import com.huaweicloud.frs.client.result.*;
 import com.huaweicloud.frs.client.service.FrsClient;
 import com.sample.servicecomb.common.configuration.FrsConfigurationProperties;
+import com.sample.servicecomb.common.util.FastJsonUtil;
+import com.sample.servicecomb.common.util.hw.HuaWeiHttpClient;
+import com.sample.servicecomb.common.util.hw.HwApiUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpMethod;
 
 import java.util.Map;
 
@@ -16,6 +22,7 @@ import java.util.Map;
  * @DATE 2019/3/7 14:51
  */
 public class FrsClientUtil {
+    private static Logger LOGGER = LoggerFactory.getLogger(FrsClientUtil.class);
     private FrsClient frsClient;
     private FrsConfigurationProperties frsProperties;
     public FrsClient getInstance(){
@@ -104,6 +111,21 @@ public class FrsClientUtil {
      */
     public DetectFaceResult detectFace(String obsUrl,String attr) throws Exception {
         DetectFaceResult result = frsClient.getDetectService().detectFaceByObsUrl(obsUrl,attr);
+        return result;
+    }
+
+    /**
+     * 添加辅助人脸
+     * @return
+     * @throws Exception
+     */
+    public String auxiliaryFace(Map<String,Object> map) throws Exception {
+        String result = HuaWeiHttpClient.post(frsProperties.getServiceName(),
+                frsProperties.getRegion(),frsProperties.getAccessKey(),
+                frsProperties.getSecretKey(),
+                HwApiUtil.getFaceUrl(frsProperties,HttpMethod.POST,null,"memberfaces"),
+                FastJsonUtil.toJSONString(map));
+        LOGGER.info("AuxiliaryFace Result:{}",result);
         return result;
     }
 

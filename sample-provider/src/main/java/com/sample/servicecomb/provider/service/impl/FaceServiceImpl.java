@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName FaceServiceImpl
@@ -68,6 +69,9 @@ public class FaceServiceImpl implements FaceService, DisRecordHandler {
      */
     private void faceCapture(String streamName, Record record) throws Exception {
         FaceCaptured faceCaptured = FastJsonUtil.toBean(new String(record.getData().array()), FaceCaptured.class);
+        if("ea95203b-8b15-4faa-aec8-2c8dcd712c49".equals(faceCaptured.getCamera_id())){
+            System.out.println("camera_165");
+        }
         //拼接文件名
         String path = new StringBuilder()
                 .append(faceCaptured.getCamera_id())
@@ -143,5 +147,11 @@ public class FaceServiceImpl implements FaceService, DisRecordHandler {
         MultipartFile multipartFile = ImageBase64Util.builder().base64ToMultipart(base64);
         PutObjectResult result = obsClientBuilder.putObject(ConstantsUtil.OBS.BUCKET_NAME, objectKey,multipartFile.getInputStream());
         return result;
+    }
+
+    @Override
+    public ResponseEntity auxiliaryFace(Map<String, Object> map) throws Exception {
+        String result = frsClientBuilder.auxiliaryFace(map);
+        return ResponseEntityUtil.success(result);
     }
 }

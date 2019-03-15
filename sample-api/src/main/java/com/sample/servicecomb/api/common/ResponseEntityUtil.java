@@ -8,11 +8,37 @@ package com.sample.servicecomb.api.common;
  */
 public class ResponseEntityUtil {
 
-    public static ResponseEntity response(String errorMsg,String errorCode,Object data){
+    public static final String SUCCESS_CODE = "0000";
+    public static final String ERROR_CODE = "-1";
+
+    public static <T> ResponseEntity<T> response(String code,String message,T data){
         ResponseEntity responseBody = new ResponseEntity();
         responseBody.setData(data);
-        responseBody.setErrorCode(errorCode);
-        responseBody.setErrorMsg(errorMsg);
+        responseBody.setErrorCode(code);
+        responseBody.setErrorMsg(message);
         return responseBody;
+    }
+
+    public static ResponseEntity response(String code,String message){
+        ResponseEntity responseBody = new ResponseEntity();
+        responseBody.setErrorCode(code);
+        responseBody.setErrorMsg(message);
+        return responseBody;
+    }
+
+    public static <T> ResponseEntity<T> success(String message,T data){
+        return response(SUCCESS_CODE,message,data);
+    }
+
+    public static ResponseEntity success(String message){
+        return response(SUCCESS_CODE,message);
+    }
+
+    public static ResponseEntity fail(String code,String message){
+        return response(code, message);
+    }
+
+    public static ResponseEntity fail(String message) {
+        return response(ERROR_CODE,message);
     }
 }
