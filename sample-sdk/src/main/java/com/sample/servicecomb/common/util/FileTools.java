@@ -1565,8 +1565,4 @@ public class FileTools {
             input.close();
         }
     }
-
-    public static void main(String[] args) throws Exception{
-        zipMultiFile("F:\\download","F:\\test.zip",true);
-    }
 }

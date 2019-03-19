@@ -1,20 +1,27 @@
 package com.sample.servicecomb.provider.service.impl;
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.obs.services.model.*;
 import com.sample.servicecomb.api.common.ResponseEntity;
 import com.sample.servicecomb.api.common.ResponseEntityUtil;
+import com.sample.servicecomb.common.configuration.ObsConfigurationProperties;
 import com.sample.servicecomb.common.obs.ObsClientUtil;
+import com.sample.servicecomb.common.util.CommonUtil;
+import com.sample.servicecomb.common.util.FileTools;
 import com.sample.servicecomb.provider.dao.BaseObsMapper;
 import com.sample.servicecomb.provider.model.BaseObs;
 import com.sample.servicecomb.provider.model.vo.CreateBucketVO;
 import com.sample.servicecomb.provider.service.FileService;
 import com.sample.servicecomb.provider.utils.ConstantsUtil;
+import org.apache.servicecomb.foundation.common.part.FilePart;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName FileServiceImpl
@@ -29,6 +36,8 @@ public class FileServiceImpl implements FileService {
     private ObsClientUtil obsClientBuilder;
     @Resource
     private BaseObsMapper baseObsMapper;
+    @Autowired
+    private ObsConfigurationProperties obsConfigurationProperties;
 
     @Override
     public ResponseEntity claimUploadId(String fileName) throws Exception {
@@ -75,9 +84,12 @@ public class FileServiceImpl implements FileService {
         return ResponseEntityUtil.response("ok","0000",bucket);
     }
 
+
     @Override
-    public ResponseEntity download(String bucketName, String objectKey, String fileName) throws Exception {
-        DownloadFileResult result = obsClientBuilder.downloadObject(bucketName, objectKey, fileName);
-        return ResponseEntityUtil.success("success",result);
+    public FilePart download(String bucketName, Map<String,String> map) throws Exception {
+        map.forEach((key,value) -> obsClientBuilder.downloadObject(bucketName,value,key));
+        String zipFile = obsConfigurationProperties.getZipPath()+CommonUtil.generateRandomFilename("zip");
+        FileTools.zipMultiFile(obsConfigurationProperties.getDownPath(),zipFile ,true);
+        return new FilePart("",zipFile).setDeleteAfterFinished(true);
     }
 }

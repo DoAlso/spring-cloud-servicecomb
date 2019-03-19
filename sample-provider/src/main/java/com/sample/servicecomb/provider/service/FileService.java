@@ -2,9 +2,11 @@ package com.sample.servicecomb.provider.service;
 import com.obs.services.model.PartEtag;
 import com.sample.servicecomb.api.common.ResponseEntity;
 import com.sample.servicecomb.provider.model.vo.CreateBucketVO;
+import org.apache.servicecomb.foundation.common.part.FilePart;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface FileService {
@@ -60,10 +62,9 @@ public interface FileService {
     /**
      * OBS 文件下载
      * @param bucketName
-     * @param objectKey
-     * @param fileName
+     * @param map
      * @return
      * @throws Exception
      */
-    ResponseEntity download(String bucketName,String objectKey,String fileName) throws Exception;
+    FilePart download(String bucketName, Map<String,String> map) throws Exception;
 }

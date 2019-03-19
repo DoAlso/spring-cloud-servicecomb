@@ -26,6 +26,7 @@ public class ObsConfigurationProperties {
     private String ak;
     private String sk;
     private String downPath;
+    private String zipPath;
 
     public String getEndPoint() {
         return endPoint;
@@ -89,5 +90,13 @@ public class ObsConfigurationProperties {
 
     public void setDownPath(String downPath) {
         this.downPath = downPath;
+    }
+
+    public String getZipPath() {
+        return zipPath;
+    }
+
+    public void setZipPath(String zipPath) {
+        this.zipPath = zipPath;
     }
 }

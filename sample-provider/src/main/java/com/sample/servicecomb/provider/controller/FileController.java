@@ -5,12 +5,15 @@ import com.sample.servicecomb.provider.model.vo.CompleteMultipartVO;
 import com.sample.servicecomb.provider.model.vo.CreateBucketVO;
 import com.sample.servicecomb.provider.model.vo.FileVO;
 import com.sample.servicecomb.provider.service.FileService;
+import org.apache.servicecomb.foundation.common.part.FilePart;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.ws.rs.core.MediaType;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @ClassName FileController
@@ -51,5 +54,15 @@ public class FileController {
     @PostMapping(value = "/createBucket")
     public ResponseEntity createBucket(@RequestBody CreateBucketVO createBucketReq) throws Exception {
         return fileService.createBucket(createBucketReq);
+    }
+
+    @GetMapping(value = "/download")
+    public FilePart download() throws Exception {
+        Map<String,String> map = new HashMap<>();
+        map.put("20190301103037791085876.jpg","faces/13267/20190301103037791085876.jpg");
+        map.put("20190301103037855209167.jpg","faces/13267/20190301103037855209167.jpg");
+        map.put("201903011030481388042893.jpg","faces/13267/201903011030481388042893.jpg");
+        map.put("201903011030501727023809.jpg","faces/13267/201903011030501727023809.jpg");
+        return fileService.download("hoolink-bucket",map);
     }
 }
