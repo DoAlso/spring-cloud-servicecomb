@@ -1,6 +1,13 @@
 package com.sample.servicecomb.common.configuration;
 
+import io.vertx.core.http.HttpServer;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.util.ResourceUtils;
+
+import java.io.FileNotFoundException;
 
 /**
  * @ClassName ObsConfigurationProperties
@@ -10,12 +17,15 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @ConfigurationProperties(value = "huawei.obs")
 public class ObsConfigurationProperties {
+    private static Logger LOGGER = LoggerFactory.getLogger(ObsConfigurationProperties.class);
+    private static final String CLASS_PATH = "classpath:";
     private String endPoint;
     private Integer socketTimeout;
     private Integer connectionTimeout;
     private Boolean httpsOnly;
     private String ak;
     private String sk;
+    private String downPath;
 
     public String getEndPoint() {
         return endPoint;
@@ -63,5 +73,21 @@ public class ObsConfigurationProperties {
 
     public void setSk(String sk) {
         this.sk = sk;
+    }
+
+    public String getDownPath() {
+        if(StringUtils.isNotBlank(downPath)){
+            return downPath;
+        }
+        try {
+            downPath = ResourceUtils.getURL(CLASS_PATH).getPath();
+        }catch (FileNotFoundException e){
+            LOGGER.error("errorMsg:{},cause:{}",e.getMessage(),e.getCause());
+        }
+        return downPath;
+    }
+
+    public void setDownPath(String downPath) {
+        this.downPath = downPath;
     }
 }

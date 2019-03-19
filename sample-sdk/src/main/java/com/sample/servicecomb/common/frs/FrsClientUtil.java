@@ -120,6 +120,7 @@ public class FrsClientUtil {
      * @throws Exception
      */
     public String auxiliaryFace(Map<String,Object> map) throws Exception {
+        LOGGER.info("AuxiliaryFace Url:{}",HwApiUtil.getFaceUrl(frsProperties,HttpMethod.POST,null,"memberfaces"));
         String result = HuaWeiHttpClient.post(frsProperties.getServiceName(),
                 frsProperties.getRegion(),frsProperties.getAccessKey(),
                 frsProperties.getSecretKey(),

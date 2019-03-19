@@ -1,9 +1,9 @@
 package com.sample.servicecomb.provider;
 
 import com.huaweicloud.frs.client.result.DetectFaceResult;
-import com.huaweicloud.frs.client.result.common.DetectFace;
-import com.huaweicloud.frs.client.result.common.Face;
+import com.obs.services.model.DownloadFileResult;
 import com.sample.servicecomb.common.frs.FrsClientUtil;
+import com.sample.servicecomb.common.obs.ObsClientUtil;
 import com.sample.servicecomb.common.util.FastJsonUtil;
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,6 +20,8 @@ public class ProviderApplicationTests {
     private static Logger logger = LoggerFactory.getLogger(ProviderApplicationTests.class);
     @Autowired
     private FrsClientUtil frsClientUtil;
+    @Autowired
+    private ObsClientUtil obsClientUtil;
 
     @Test
     public void contextLoads() {
@@ -36,4 +38,9 @@ public class ProviderApplicationTests {
         }
     }
 
+    @Test
+    public void testObsDownLoad(){
+        DownloadFileResult result = obsClientUtil.downloadObject("hoolink-bucket","faces/13267/20190301103157121596194.jpg","20190301103157121596194.jpg");
+        logger.info("detectFaceResult:{}", FastJsonUtil.toJSONString(result));
+    }
 }

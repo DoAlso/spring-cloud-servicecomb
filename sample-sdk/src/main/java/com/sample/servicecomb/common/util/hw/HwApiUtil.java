@@ -12,7 +12,6 @@ import java.util.Map;
  * @DATE 2019/3/15 16:36
  */
 public class HwApiUtil {
-    private static final String PROTOCOL = "https://";
     private static final String DELIMITER = "/";
     private static final String GET_DELIMITER = "?";
     private static final String GET_PLACEHOLDER = "&";
@@ -20,7 +19,7 @@ public class HwApiUtil {
 
 
     public static String getFaceUrl(FrsConfigurationProperties properties,HttpMethod method, Map<String,String> map, String... args){
-        StringBuffer httpUrl = new StringBuffer(PROTOCOL)
+        StringBuffer httpUrl = new StringBuffer()
                 .append(properties.getEndPoint())
                 .append(DELIMITER)
                 .append(properties.getApiVersion())

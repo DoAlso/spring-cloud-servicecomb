@@ -50,7 +50,8 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public ResponseEntity sampleUpload(MultipartFile file) throws Exception {
-        PutObjectResult result = obsClientBuilder.putObject(ConstantsUtil.OBS.BUCKET_NAME,file.getOriginalFilename(),file.getInputStream());
+        String fileName = "faces/13267/"+file.getOriginalFilename();
+        PutObjectResult result = obsClientBuilder.putObject(ConstantsUtil.OBS.BUCKET_NAME,fileName,file.getInputStream());
         BaseObs baseObs = new BaseObs();
         baseObs.setBucketName(result.getBucketName());
         baseObs.setObjectKey(result.getObjectKey());
@@ -72,5 +73,11 @@ public class FileServiceImpl implements FileService {
     public ResponseEntity createBucket(CreateBucketVO createBucketReq) throws Exception {
         ObsBucket bucket = obsClientBuilder.createBucket(createBucketReq.getBucketName());
         return ResponseEntityUtil.response("ok","0000",bucket);
+    }
+
+    @Override
+    public ResponseEntity download(String bucketName, String objectKey, String fileName) throws Exception {
+        DownloadFileResult result = obsClientBuilder.downloadObject(bucketName, objectKey, fileName);
+        return ResponseEntityUtil.success("success",result);
     }
 }

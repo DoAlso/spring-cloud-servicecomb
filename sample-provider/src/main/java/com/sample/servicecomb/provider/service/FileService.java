@@ -55,4 +55,15 @@ public interface FileService {
      * @throws Exception
      */
     ResponseEntity createBucket(CreateBucketVO createBucketReq) throws Exception;
+
+
+    /**
+     * OBS 文件下载
+     * @param bucketName
+     * @param objectKey
+     * @param fileName
+     * @return
+     * @throws Exception
+     */
+    ResponseEntity download(String bucketName,String objectKey,String fileName) throws Exception;
 }
