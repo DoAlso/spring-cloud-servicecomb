@@ -8,6 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.ResourceUtils;
 
 import java.io.FileNotFoundException;
+import java.nio.file.Files;
 
 /**
  * @ClassName ObsConfigurationProperties
@@ -25,8 +26,6 @@ public class ObsConfigurationProperties {
     private Boolean httpsOnly;
     private String ak;
     private String sk;
-    private String downPath;
-    private String zipPath;
 
     public String getEndPoint() {
         return endPoint;
@@ -74,29 +73,5 @@ public class ObsConfigurationProperties {
 
     public void setSk(String sk) {
         this.sk = sk;
-    }
-
-    public String getDownPath() {
-        if(StringUtils.isNotBlank(downPath)){
-            return downPath;
-        }
-        try {
-            downPath = ResourceUtils.getURL(CLASS_PATH).getPath();
-        }catch (FileNotFoundException e){
-            LOGGER.error("errorMsg:{},cause:{}",e.getMessage(),e.getCause());
-        }
-        return downPath;
-    }
-
-    public void setDownPath(String downPath) {
-        this.downPath = downPath;
-    }
-
-    public String getZipPath() {
-        return zipPath;
-    }
-
-    public void setZipPath(String zipPath) {
-        this.zipPath = zipPath;
     }
 }

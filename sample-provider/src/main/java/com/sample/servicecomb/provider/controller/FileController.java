@@ -63,6 +63,6 @@ public class FileController {
         map.put("20190301103037855209167.jpg","faces/13267/20190301103037855209167.jpg");
         map.put("201903011030481388042893.jpg","faces/13267/201903011030481388042893.jpg");
         map.put("201903011030501727023809.jpg","faces/13267/201903011030501727023809.jpg");
-        return fileService.download("hoolink-bucket",map);
+        return fileService.func("hoolink-bucket",map);
     }
 }

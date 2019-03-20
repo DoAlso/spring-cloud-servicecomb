@@ -141,4 +141,16 @@ public class CommonUtil {
                 .append(fileExt).toString();
         return randomFilename;
     }
+
+    public static String generateRandomFilePath(){
+        Random rand = new Random();
+        int random = rand.nextInt();
+        SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String temp = sf.format(new Date());
+        String randomFilename = new StringBuffer(temp)
+                .append(String.valueOf(random > 0 ? random : ( -1) * random))
+                .append(POINT_SIGN)
+                .append("\\").toString();
+        return randomFilename;
+    }
 }

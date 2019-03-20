@@ -1520,11 +1520,10 @@ public class FileTools {
      * 2015年6月9日
      */
     public static void zipMultiFile(String filepath ,String zippath, boolean dirFlag) {
-        try {
+        File file = new File(filepath);
+        File zipFile = new File(zippath);
+        try (ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(zipFile))){
             // 要被压缩的文件夹
-            File file = new File(filepath);
-            File zipFile = new File(zippath);
-            ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(zipFile));
             if(file.isDirectory()){
                 File[] files = file.listFiles();
                 for(File fileSec:files){
@@ -1535,9 +1534,11 @@ public class FileTools {
                     }
                 }
             }
-            zipOut.close();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            //压缩完成之后删除临时下载文件
+            FileTools.rmdir(file,true);
         }
     }
 

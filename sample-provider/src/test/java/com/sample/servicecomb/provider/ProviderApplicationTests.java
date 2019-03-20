@@ -2,6 +2,7 @@ package com.sample.servicecomb.provider;
 
 import com.huaweicloud.frs.client.result.DetectFaceResult;
 import com.sample.servicecomb.common.frs.FrsClientUtil;
+import com.sample.servicecomb.common.util.DateUtil;
 import com.sample.servicecomb.common.util.FastJsonUtil;
 import com.sample.servicecomb.provider.service.FileService;
 import org.junit.Assert;
@@ -48,6 +49,14 @@ public class ProviderApplicationTests {
         map.put("20190301103037855209167.jpg","faces/13267/20190301103037855209167.jpg");
         map.put("201903011030481388042893.jpg","faces/13267/201903011030481388042893.jpg");
         map.put("201903011030501727023809.jpg","faces/13267/201903011030501727023809.jpg");
-        fileService.download("hoolink-bucket",map);
+        fileService.func("hoolink-bucket",map);
+    }
+
+    @Test
+    public void testGetRenXinSet(){
+        Map<String,Object> paramMap = new HashMap<>();
+        paramMap.put("face_set_name","xinjingri");
+        paramMap.put("query_date", DateUtil.currentDate2StringByDay());
+        frsClientUtil.getRenXinSet(paramMap);
     }
 }

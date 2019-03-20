@@ -64,8 +64,6 @@ huawei:
     connection-timeout: 10000
     sk: i1aCblcgP4ZyoUwBHZnWd4rJCb5skN2Ya0LzSix5
     ak: 3TWL7VJQ4IM45X3DAMLF
-    down-path: F:\\download\
-    zip-path: F:\\
   dis:
     access-key: 3TWL7VJQ4IM45X3DAMLF
     secret-key: i1aCblcgP4ZyoUwBHZnWd4rJCb5skN2Ya0LzSix5

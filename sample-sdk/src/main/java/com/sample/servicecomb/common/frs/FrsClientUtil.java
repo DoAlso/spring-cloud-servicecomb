@@ -119,7 +119,7 @@ public class FrsClientUtil {
      * @return
      * @throws Exception
      */
-    public String auxiliaryFace(Map<String,Object> map) throws Exception {
+    public String auxiliaryFace(Map<String,Object> map) {
         LOGGER.info("AuxiliaryFace Url:{}",HwApiUtil.getFaceUrl(frsProperties,HttpMethod.POST,null,"memberfaces"));
         String result = HuaWeiHttpClient.post(frsProperties.getServiceName(),
                 frsProperties.getRegion(),frsProperties.getAccessKey(),
@@ -127,6 +127,21 @@ public class FrsClientUtil {
                 HwApiUtil.getFaceUrl(frsProperties,HttpMethod.POST,null,"memberfaces"),
                 FastJsonUtil.toJSONString(map));
         LOGGER.info("AuxiliaryFace Result:{}",result);
+        return result;
+    }
+
+    /**
+     * 获取人形列表
+     * @param map
+     * @return
+     */
+    public String getRenXinSet(Map<String,Object> map){
+        String result = HuaWeiHttpClient.post(frsProperties.getServiceName(),
+                frsProperties.getRegion(),frsProperties.getAccessKey(),
+                frsProperties.getSecretKey(),
+                HwApiUtil.getFaceUrl(frsProperties,HttpMethod.POST,null,"figure-set-content/filter"),
+                FastJsonUtil.toJSONString(map));
+        LOGGER.info("GetRenXinSet Result:{}",result);
         return result;
     }
 

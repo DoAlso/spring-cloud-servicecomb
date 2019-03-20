@@ -67,4 +67,6 @@ public interface FileService {
      * @throws Exception
      */
     FilePart download(String bucketName, Map<String,String> map) throws Exception;
+
+    FilePart func(String bucketName, Map<String,String> map);
 }

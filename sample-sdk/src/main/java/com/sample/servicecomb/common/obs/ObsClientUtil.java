@@ -5,9 +5,6 @@ import com.obs.services.ObsConfiguration;
 import com.obs.services.exception.ObsException;
 import com.obs.services.model.*;
 import com.sample.servicecomb.common.configuration.ObsConfigurationProperties;
-import com.sample.servicecomb.common.util.FileTools;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -139,9 +136,17 @@ public class ObsClientUtil {
      * @return
      */
     public DownloadFileResult downloadObject(String bucketName,String objectKey,String fileName){
-        FileTools.mkdir(ObsProperties.getDownPath());
-        String fullPath = new StringBuffer(ObsProperties.getDownPath()).append(fileName).toString();
-        return obsClient.downloadFile(new DownloadFileRequest(bucketName,objectKey,fullPath));
+        return obsClient.downloadFile(new DownloadFileRequest(bucketName,objectKey,fileName));
+    }
+
+    /**
+     * 获取Obs对象信息
+     * @param bucketName
+     * @param objectKey
+     * @return
+     */
+    public ObsObject getObsObject(String bucketName,String objectKey){
+        return obsClient.getObject(bucketName, objectKey);
     }
 
 

@@ -14,14 +14,19 @@ import com.sample.servicecomb.provider.model.vo.CreateBucketVO;
 import com.sample.servicecomb.provider.service.FileService;
 import com.sample.servicecomb.provider.utils.ConstantsUtil;
 import org.apache.servicecomb.foundation.common.part.FilePart;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * @ClassName FileServiceImpl
@@ -36,7 +41,7 @@ public class FileServiceImpl implements FileService {
     private ObsClientUtil obsClientBuilder;
     @Resource
     private BaseObsMapper baseObsMapper;
-    @Autowired
+    @Resource
     private ObsConfigurationProperties obsConfigurationProperties;
 
     @Override
@@ -87,9 +92,40 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public FilePart download(String bucketName, Map<String,String> map) throws Exception {
-        map.forEach((key,value) -> obsClientBuilder.downloadObject(bucketName,value,key));
-        String zipFile = obsConfigurationProperties.getZipPath()+CommonUtil.generateRandomFilename("zip");
-        FileTools.zipMultiFile(obsConfigurationProperties.getDownPath(),zipFile ,true);
+        String temPath = Files.createTempDirectory("temp").toFile().getAbsolutePath()+"\\";
+        String path = temPath+CommonUtil.generateRandomFilePath();
+        map.forEach((key,value) -> obsClientBuilder.downloadObject(bucketName,value,path+key));
+        String zipFile = temPath+CommonUtil.generateRandomFilename("zip");
+        FileTools.zipMultiFile(path,zipFile ,false);
         return new FilePart("",zipFile).setDeleteAfterFinished(true);
+    }
+
+    @Override
+    public FilePart func(String bucketName, Map<String,String> map){
+        try{
+            String temPath = Files.createTempDirectory("temp").toFile().getAbsolutePath()+"\\";
+            String zipFile = temPath+CommonUtil.generateRandomFilename("zip");
+            ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(zipFile));
+            map.forEach((key,value)->{
+                ObsObject obsObject = obsClientBuilder.getObsObject(bucketName,value);
+                byte[] buf = new byte[1024];
+                InputStream inputStream = obsObject.getObjectContent();
+                try {
+                    zipOut.putNextEntry(new ZipEntry(key));
+                    int len;
+                    while((len = inputStream.read(buf)) != -1){
+                        zipOut.write(buf, 0, len);
+                    }
+                    inputStream.close();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            });
+            zipOut.close();
+            return new FilePart("",zipFile).setDeleteAfterFinished(true);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }
