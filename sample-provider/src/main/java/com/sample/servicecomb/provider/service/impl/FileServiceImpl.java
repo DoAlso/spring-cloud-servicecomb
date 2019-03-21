@@ -1,10 +1,8 @@
 package com.sample.servicecomb.provider.service.impl;
 
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.obs.services.model.*;
 import com.sample.servicecomb.api.common.ResponseEntity;
 import com.sample.servicecomb.api.common.ResponseEntityUtil;
-import com.sample.servicecomb.common.configuration.ObsConfigurationProperties;
 import com.sample.servicecomb.common.obs.ObsClientUtil;
 import com.sample.servicecomb.common.util.CommonUtil;
 import com.sample.servicecomb.common.util.FileTools;
@@ -24,7 +22,6 @@ import java.nio.file.Files;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -41,8 +38,6 @@ public class FileServiceImpl implements FileService {
     private ObsClientUtil obsClientBuilder;
     @Resource
     private BaseObsMapper baseObsMapper;
-    @Resource
-    private ObsConfigurationProperties obsConfigurationProperties;
 
     @Override
     public ResponseEntity claimUploadId(String fileName) throws Exception {

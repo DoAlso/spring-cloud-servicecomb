@@ -1,3 +1,5 @@
+server:
+  port: 8111
 spring:
   application:
     name: provider
@@ -6,10 +8,6 @@ spring:
     username: root
     password: qwe12356
     driver-class-name: com.mysql.cj.jdbc.Driver
-
-server:
-  port: 8111
-
 # CSE RPC 的配置项
 # 应用名称
 APPLICATION_ID: SpringCloud-ServiceComb

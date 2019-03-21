@@ -72,6 +72,18 @@ public class FaceServiceImpl implements FaceService, DisRecordHandler {
         if("ea95203b-8b15-4faa-aec8-2c8dcd712c49".equals(faceCaptured.getCamera_id())){
             System.out.println("camera_165");
         }
+        if("62a5b7b4-6159-42e9-97a7-71b2ecc0359c".equals(faceCaptured.getCamera_id())){
+            System.out.println("camera_131");
+        }
+        if("ea205c41-ed83-4774-83ae-0784afc1d28a".equals(faceCaptured.getCamera_id())){
+            System.out.println("camera_137");
+        }
+        if("0bce0c6b-496a-4cbb-b3bf-945331e9a43a".equals(faceCaptured.getCamera_id())){
+            System.out.println("camera_164");
+        }
+        if("84c63e80-e3a5-43ab-8d45-5fc07a27e81c".equals(faceCaptured.getCamera_id())){
+            System.out.println("camera_179");
+        }
         //拼接文件名
         String path = new StringBuilder()
                 .append(faceCaptured.getCamera_id())
