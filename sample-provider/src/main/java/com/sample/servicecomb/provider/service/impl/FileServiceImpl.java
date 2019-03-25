@@ -59,7 +59,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public ResponseEntity sampleUpload(MultipartFile file) throws Exception {
-        String fileName = "faces/13267/"+file.getOriginalFilename();
+        String fileName = "faces/2/"+file.getOriginalFilename();
         PutObjectResult result = obsClientBuilder.putObject(ConstantsUtil.OBS.BUCKET_NAME,fileName,file.getInputStream());
         BaseObs baseObs = new BaseObs();
         baseObs.setBucketName(result.getBucketName());

@@ -145,6 +145,23 @@ public class FrsClientUtil {
         return result;
     }
 
+
+    /**
+     * 人脸聚合接口
+     * @param map
+     * @return
+     */
+    public String faceAggregation(Map<String,Object> map){
+        String result = HuaWeiHttpClient.post(frsProperties.getServiceName(),
+                frsProperties.getRegion(),frsProperties.getAccessKey(),
+                frsProperties.getSecretKey(),
+                HwApiUtil.getFaceUrl(frsProperties,HttpMethod.POST,null,"facepictures"),
+                FastJsonUtil.toJSONString(map));
+        LOGGER.info("FaceAggregation Result:{}",result);
+        return result;
+    }
+
+
     private FrsClient createFrsClient(){
         AuthInfo authInfo = new AuthInfo(frsProperties.getEndPoint(),
                 frsProperties.getRegion(),
