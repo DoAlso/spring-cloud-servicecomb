@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - ProviderApplication",
+            "request": "launch",
+            "mainClass": "com.sample.servicecomb.provider.ProviderApplication",
+            "projectName": "sample-provider"
+        }
+    ]
+}

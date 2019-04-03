@@ -44,4 +44,9 @@ public class UserController implements IUserController {
         }
         return null;
     }
+
+    @PostMapping("/message")
+    public String getBack(@RequestParam("param") String param){
+        return param;
+    }
 }

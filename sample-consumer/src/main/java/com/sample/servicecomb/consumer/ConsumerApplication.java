@@ -14,13 +14,14 @@ import org.springframework.web.client.RestTemplate;
  * @Author Administrator
  * @DATE 2019/1/21 17:07
  */
-@EnableServiceComb
+//@EnableServiceComb
 @SpringBootApplication
 public class ConsumerApplication {
     public static void main(String[] args) {
-        SpringApplication application = new SpringApplication(ConsumerApplication.class);
-        application.setWebApplicationType(WebApplicationType.NONE);
-        application.run(args);
+//        SpringApplication application = new SpringApplication(ConsumerApplication.class);
+//        application.setWebApplicationType(WebApplicationType.NONE);
+//        application.run(args);
+        SpringApplication.run(ConsumerApplication.class,args);
     }
 
     @Bean

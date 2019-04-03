@@ -11,6 +11,7 @@ import com.sample.servicecomb.common.frs.FrsClientUtil;
 import com.sample.servicecomb.common.obs.ObsClientUtil;
 import com.sample.servicecomb.common.util.CommonUtil;
 import com.sample.servicecomb.common.util.FastJsonUtil;
+import com.sample.servicecomb.common.util.FileTools;
 import com.sample.servicecomb.common.util.ImageBase64Util;
 import com.sample.servicecomb.provider.dao.FaceHisMapper;
 import com.sample.servicecomb.provider.dao.FaceInfoMapper;
@@ -29,6 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -92,6 +94,7 @@ public class FaceServiceImpl implements FaceService, DisRecordHandler {
                 .append(ConstantsUtil.CommonKey.DELIMITER).toString();
         String fileName = CommonUtil.generateRandomFilename("jpg");
         String objectKey = new StringBuilder(path).append(fileName).toString();
+        FileTools.base64ToImage("F:\\faces\\",fileName,faceCaptured.getImage_data(),false);
         if(StringUtils.isNotBlank(faceCaptured.getFace_id())){
             //端测小图拿来进行人脸识别
             PutObjectResult objectResult = faceUploadOBS(faceCaptured.getCamera_id(),objectKey,fileName,"jpg",faceCaptured.getImage_data());
@@ -165,5 +168,15 @@ public class FaceServiceImpl implements FaceService, DisRecordHandler {
     public ResponseEntity auxiliaryFace(Map<String, Object> map) throws Exception {
         String result = frsClientBuilder.auxiliaryFace(map);
         return ResponseEntityUtil.success(result);
+    }
+
+    @Override
+    public ResponseEntity getCandidFace(String year, String month, String day) throws Exception {
+        String rootPath = "F:\\faces\\";
+        List<File> files = FileTools.ls(rootPath,true);
+        files.forEach((file -> {
+
+        }));
+        return null;
     }
 }
