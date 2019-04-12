@@ -35,7 +35,7 @@
 		<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Greenwich.RC2</spring-cloud.version>
-		<cse.version>2.3.62</cse.version>
+		<cse.version>2.3.65</cse.version>
 	</properties>
 
 	<dependencies>

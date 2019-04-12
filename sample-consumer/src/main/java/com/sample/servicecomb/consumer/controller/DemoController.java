@@ -1,9 +1,9 @@
 package com.sample.servicecomb.consumer.controller;
 
-import com.sample.servicecomb.consumer.common.TestValue;
 import com.sample.servicecomb.consumer.rest.DemoRestClient;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoController {
     @Autowired
     private DemoRestClient demoRestClient;
-    @Autowired
-    private TestValue testValue;
+    @Value("${author.name}")
+    private String value;
 
     @GetMapping("/sayHi")
     public String sayHi(String name){
@@ -28,6 +28,6 @@ public class DemoController {
 
     @GetMapping("/getValue")
     public String getValue(){
-        return testValue.getValue();
+        return value;
     }
 }
