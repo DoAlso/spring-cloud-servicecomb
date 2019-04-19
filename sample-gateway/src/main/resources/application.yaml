@@ -35,7 +35,7 @@ servicecomb:
       Consumer:
         default: qps-flowcontrol-consumer,loadbalance,fault-injection-consumer
 
-    # 路由配置
+  # 路由配置
   http:
     dispatcher:
       edge:

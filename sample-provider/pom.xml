@@ -28,7 +28,7 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.servicecomb</groupId>
-            <artifactId>spring-boot2-starter-servlet</artifactId>
+            <artifactId>spring-boot2-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>com.servicecomb.springcloud</groupId>

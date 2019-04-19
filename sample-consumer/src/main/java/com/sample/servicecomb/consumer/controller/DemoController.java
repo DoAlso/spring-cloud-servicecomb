@@ -3,7 +3,7 @@ package com.sample.servicecomb.consumer.controller;
 import com.sample.servicecomb.consumer.rest.DemoRestClient;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestSchema(schemaId = "demoController")
 public class DemoController {
     @Autowired
+    private ApplicationContext applicationContext;
+    @Autowired
     private DemoRestClient demoRestClient;
-    @Value("${author.name}")
-    private String value;
 
     @GetMapping("/sayHi")
     public String sayHi(String name){
@@ -28,6 +28,6 @@ public class DemoController {
 
     @GetMapping("/getValue")
     public String getValue(){
-        return value;
+        return applicationContext.getEnvironment().getProperty("author.name");
     }
 }

@@ -23,27 +23,16 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.servicecomb</groupId>
-            <artifactId>spring-boot2-starter-servlet</artifactId>
+            <artifactId>spring-boot2-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.servicecomb</groupId>
             <artifactId>inspector</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-websocket</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <groupId>com.servicecomb.springcloud</groupId>
+            <artifactId>sample-servicecomb-config</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.servicecomb.springcloud</groupId>

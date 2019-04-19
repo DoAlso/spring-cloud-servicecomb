@@ -25,6 +25,7 @@
 		<module>sample-sdk</module>
 		<module>sample-show</module>
 		<module>sample-api</module>
+		<module>sample-servicecomb-config</module>
 	</modules>
 
 	<properties>
