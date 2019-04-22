@@ -1,5 +1,7 @@
 package com.sample.servicecomb.consumer.controller;
 
+import com.netflix.config.DynamicPropertyFactory;
+import com.netflix.config.DynamicStringProperty;
 import com.sample.servicecomb.consumer.rest.DemoRestClient;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +31,11 @@ public class DemoController {
     @GetMapping("/getValue")
     public String getValue(){
         return applicationContext.getEnvironment().getProperty("author.name");
+    }
+
+    @GetMapping("/getKey")
+    public String getKey(){
+        DynamicStringProperty myprop = DynamicPropertyFactory.getInstance().getStringProperty("author.name","hyx");
+        return myprop.getValue();
     }
 }

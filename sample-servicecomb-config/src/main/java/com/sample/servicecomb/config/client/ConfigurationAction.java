@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.sample.servicecomb.config;
+package com.sample.servicecomb.config.client;
 
 public enum ConfigurationAction {
   CREATE,

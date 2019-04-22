@@ -15,4 +15,4 @@
 # limitations under the License.
 #
 
-com.sample.servicecomb.config.CloudConfigClient
+com.sample.servicecomb.config.CloudConfigurationSourceImpl
