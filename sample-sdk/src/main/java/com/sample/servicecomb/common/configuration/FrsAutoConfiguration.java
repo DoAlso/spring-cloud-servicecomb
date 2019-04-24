@@ -1,7 +1,7 @@
 package com.sample.servicecomb.common.configuration;
 
 import com.sample.servicecomb.common.frs.FrsClientUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,11 +16,9 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(FrsConfigurationProperties.class)
 public class FrsAutoConfiguration {
 
-    @Autowired
-    private FrsConfigurationProperties properties;
-
     @Bean
-    public FrsClientUtil getFrsClientUtil(){
+    @ConditionalOnBean(FrsConfigurationProperties.class)
+    public FrsClientUtil getFrsClientUtil(FrsConfigurationProperties properties){
         FrsClientUtil frsClientUtil = new FrsClientUtil();
         frsClientUtil.setFrsProperties(properties);
         frsClientUtil.getInstance();

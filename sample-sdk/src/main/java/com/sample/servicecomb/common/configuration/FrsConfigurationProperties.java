@@ -10,13 +10,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @ConfigurationProperties(prefix = "huawei.frs")
 public class FrsConfigurationProperties {
-    private String region;
-    private String endPoint;
-    private String accessKey;
-    private String secretKey;
-    private String serviceName;
-    private String projectId;
-    private String apiVersion;
+    private String region = "cn-north-1";
+    private String endPoint = "https://face.cn-north-1.myhuaweicloud.com";
+    private String accessKey = "3TWL7VJQ4IM45X3DAMLF";
+    private String secretKey = "i1aCblcgP4ZyoUwBHZnWd4rJCb5skN2Ya0LzSix5";
+    private String serviceName = "frs";
+    private String projectId = "3c9ff3e423154e03bb8d65cfc5ae0d67";
+    private String apiVersion = "v1";
 
     public String getRegion() {
         return region;
