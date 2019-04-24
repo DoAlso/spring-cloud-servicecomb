@@ -56,6 +56,11 @@ public class FileController {
         return fileService.createBucket(createBucketReq);
     }
 
+    @PostMapping(value = "/uploadByUrl")
+    public ResponseEntity uploadByUrl(String url) throws Exception {
+        return  fileService.uploadByUrl("hoolink-bucket","haha.wav",url);
+    }
+
     @GetMapping(value = "/download")
     public FilePart download() throws Exception {
         Map<String,String> map = new HashMap<>();

@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.net.URL;
 import java.nio.file.Files;
 import java.util.Date;
 import java.util.List;
@@ -126,5 +127,12 @@ public class FileServiceImpl implements FileService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public ResponseEntity uploadByUrl(String bucketName,String objectKey,String url) throws Exception {
+        InputStream inputStream = new URL(url).openStream();
+        PutObjectResult putObjectResult = obsClientBuilder.putObject(bucketName,objectKey,inputStream);
+        return ResponseEntityUtil.success("success",putObjectResult);
     }
 }

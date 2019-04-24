@@ -69,4 +69,14 @@ public interface FileService {
     FilePart download(String bucketName, Map<String,String> map) throws Exception;
 
     FilePart func(String bucketName, Map<String,String> map);
+
+    /**
+     * 上传网络资源
+     * @param bucketName
+     * @param objectKey
+     * @param url
+     * @return
+     * @throws Exception
+     */
+    ResponseEntity uploadByUrl(String bucketName,String objectKey,String url) throws Exception;
 }
