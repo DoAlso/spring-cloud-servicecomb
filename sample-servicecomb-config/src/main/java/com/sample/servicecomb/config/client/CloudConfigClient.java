@@ -45,7 +45,7 @@ public class CloudConfigClient {
 
     public void refreshCloudConfig(){
         ConfigRefresh configRefresh = new ConfigRefresh(serviceUri,serviceName,env,label);
-        EXECUTOR.scheduleWithFixedDelay(configRefresh, 0, 100, TimeUnit.SECONDS);
+        EXECUTOR.scheduleWithFixedDelay(configRefresh, 0, 10, TimeUnit.SECONDS);
     }
 
     class ConfigRefresh implements Runnable {
