@@ -29,15 +29,20 @@
             <groupId>org.apache.servicecomb</groupId>
             <artifactId>inspector</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.servicecomb.springcloud</groupId>
-            <artifactId>sample-servicecomb-config</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.servicecomb.springcloud</groupId>-->
+            <!--<artifactId>sample-servicecomb-config</artifactId>-->
+            <!--<version>0.0.1-SNAPSHOT</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.servicecomb.springcloud</groupId>
             <artifactId>sample-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.hoolink.sdk</groupId>
+            <artifactId>hoolink-sdk</artifactId>
+            <version>2.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
