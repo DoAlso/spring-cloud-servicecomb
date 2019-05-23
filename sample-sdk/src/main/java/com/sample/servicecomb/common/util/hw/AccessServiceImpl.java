@@ -48,7 +48,7 @@ public class AccessServiceImpl extends AccessService {
     public HttpResponse access(URL url, Map<String, String> headers, InputStream content, Long contentLength, HttpMethodName httpMethod) throws Exception {
 
         // Make a request for signing.
-        Request request = new DefaultRequest(this.serviceName);
+        Request request = new DefaultRequest();
         try {
             // Set the request address.
             request.setEndpoint(url.toURI());

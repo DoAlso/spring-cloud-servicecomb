@@ -25,7 +25,7 @@ public class FrsClientUtil {
     private static Logger LOGGER = LoggerFactory.getLogger(FrsClientUtil.class);
     private FrsClient frsClient;
     private FrsConfigurationProperties frsProperties;
-    public FrsClient getInstance(){
+    public FrsClient getInstance() throws Exception{
         if (frsClient == null) {
             synchronized (FrsClientUtil.class) {
                 if (frsClient == null) {
@@ -162,7 +162,7 @@ public class FrsClientUtil {
     }
 
 
-    private FrsClient createFrsClient(){
+    private FrsClient createFrsClient() throws Exception{
         AuthInfo authInfo = new AuthInfo(frsProperties.getEndPoint(),
                 frsProperties.getRegion(),
                 frsProperties.getAccessKey(),
