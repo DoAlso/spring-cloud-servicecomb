@@ -78,6 +78,15 @@ public class ObsClientUtil {
         return obsClient.createBucket(obsBucket);
     }
 
+    /**
+     * 判断是否存在桶信息
+     * @param bucketName
+     * @return
+     */
+    public boolean hasBucket(String bucketName){
+        return obsClient.headBucket(bucketName);
+    }
+
 
     /**
      * put请求存储对象
