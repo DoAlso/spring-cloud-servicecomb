@@ -89,6 +89,17 @@ public class ObsClientUtil {
 
 
     /**
+     * 列举所有的桶
+     * @return
+     */
+    public List<ObsBucket> getAllBucket(){
+        ListBucketsRequest request = new ListBucketsRequest();
+        request.setQueryLocation(true);
+        return obsClient.listBuckets(request);
+    }
+
+
+    /**
      * put请求存储对象
      *
      * @param bucketName
