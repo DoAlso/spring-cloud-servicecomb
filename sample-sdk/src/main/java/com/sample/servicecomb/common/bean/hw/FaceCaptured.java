@@ -1,4 +1,4 @@
-package com.sample.servicecomb.provider.model.bean;
+package com.sample.servicecomb.common.bean.hw;
 
 /**
  * @ClassName FaceCaptured

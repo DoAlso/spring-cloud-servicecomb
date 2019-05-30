@@ -6,7 +6,6 @@ import com.huaweicloud.frs.client.param.FieldType;
 import com.huaweicloud.frs.client.result.*;
 import com.huaweicloud.frs.client.service.FrsClient;
 import com.sample.servicecomb.common.configuration.FrsConfigurationProperties;
-import com.sample.servicecomb.common.util.FastJsonUtil;
 import com.sample.servicecomb.common.util.hw.HuaWeiHttpClient;
 import com.sample.servicecomb.common.util.hw.HwApiUtil;
 import org.slf4j.Logger;
@@ -115,48 +114,68 @@ public class FrsClientUtil {
     }
 
     /**
-     * 添加辅助人脸
+     * 人脸标签服务
+     * 添加正脸/辅助人脸标签
      * @return
      * @throws Exception
      */
-    public String auxiliaryFace(Map<String,Object> map) {
-        LOGGER.info("AuxiliaryFace Url:{}",HwApiUtil.getFaceUrl(frsProperties,HttpMethod.POST,null,"memberfaces"));
+    public String addFaceLabel(String jsonParam) {
+        LOGGER.info("Add Face Label Url:{} jsonParam:{}", HwApiUtil.getFaceUrl(frsProperties, HttpMethod.POST,null,"memberfaces"),jsonParam);
         String result = HuaWeiHttpClient.post(frsProperties.getServiceName(),
                 frsProperties.getRegion(),frsProperties.getAccessKey(),
                 frsProperties.getSecretKey(),
-                HwApiUtil.getFaceUrl(frsProperties,HttpMethod.POST,null,"memberfaces"),
-                FastJsonUtil.toJSONString(map));
-        LOGGER.info("AuxiliaryFace Result:{}",result);
+                HwApiUtil.getFaceUrl(frsProperties, HttpMethod.POST,null,"memberfaces"),
+                jsonParam);
+        LOGGER.info("Add Face Label Result:{}",result);
+        return result;
+    }
+
+
+    /**
+     * 人脸标签服务
+     * 删除人脸标签
+     * @param urlParam
+     * @return
+     */
+    public String deleteFaceLabel(Map<String, String> urlParam){
+        LOGGER.info("Delete Face Label Url:{}",HwApiUtil.getFaceUrl(frsProperties, HttpMethod.DELETE,urlParam,"memberfaces"));
+        String result = HuaWeiHttpClient.delete(frsProperties.getServiceName(),
+                frsProperties.getRegion(), frsProperties.getAccessKey(),
+                frsProperties.getSecretKey(),
+                HwApiUtil.getFaceUrl(frsProperties, HttpMethod.DELETE, urlParam, "memberfaces"));
+        LOGGER.info("Delete Label Result:{}",result);
         return result;
     }
 
     /**
+     * 人脸标签服务
      * 获取人形列表
-     * @param map
+     * @param jsonParam
      * @return
      */
-    public String getRenXinSet(Map<String,Object> map){
+    public String getRenXinSet(String jsonParam){
         String result = HuaWeiHttpClient.post(frsProperties.getServiceName(),
                 frsProperties.getRegion(),frsProperties.getAccessKey(),
                 frsProperties.getSecretKey(),
-                HwApiUtil.getFaceUrl(frsProperties,HttpMethod.POST,null,"figure-set-content/filter"),
-                FastJsonUtil.toJSONString(map));
+                HwApiUtil.getFaceUrl(frsProperties, HttpMethod.POST,null,"figure-set-content/filter"),
+                jsonParam);
         LOGGER.info("GetRenXinSet Result:{}",result);
         return result;
     }
 
 
     /**
+     * 人脸标签服务
      * 人脸聚合接口
-     * @param map
+     * @param jsonParam
      * @return
      */
-    public String faceAggregation(Map<String,Object> map){
+    public String faceAggregation(String jsonParam){
         String result = HuaWeiHttpClient.post(frsProperties.getServiceName(),
                 frsProperties.getRegion(),frsProperties.getAccessKey(),
                 frsProperties.getSecretKey(),
-                HwApiUtil.getFaceUrl(frsProperties,HttpMethod.POST,null,"facepictures"),
-                FastJsonUtil.toJSONString(map));
+                HwApiUtil.getFaceUrl(frsProperties, HttpMethod.POST,null,"facepictures"),
+                jsonParam);
         LOGGER.info("FaceAggregation Result:{}",result);
         return result;
     }

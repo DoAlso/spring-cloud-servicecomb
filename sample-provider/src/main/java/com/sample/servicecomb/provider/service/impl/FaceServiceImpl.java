@@ -6,6 +6,7 @@ import com.huaweicloud.frs.client.result.common.ComplexFace;
 import com.obs.services.model.PutObjectResult;
 import com.sample.servicecomb.api.common.ResponseEntity;
 import com.sample.servicecomb.api.common.ResponseEntityUtil;
+import com.sample.servicecomb.common.bean.hw.FaceCaptured;
 import com.sample.servicecomb.common.dis.DisRecordHandler;
 import com.sample.servicecomb.common.frs.FrsClientUtil;
 import com.sample.servicecomb.common.obs.ObsClientUtil;
@@ -20,7 +21,6 @@ import com.sample.servicecomb.provider.model.FaceHis;
 import com.sample.servicecomb.provider.model.FaceInfo;
 import com.sample.servicecomb.provider.model.FaceInfoExample;
 import com.sample.servicecomb.provider.model.FaceSet;
-import com.sample.servicecomb.provider.model.bean.FaceCaptured;
 import com.sample.servicecomb.provider.model.vo.CreateFaceSetVO;
 import com.sample.servicecomb.provider.model.vo.CreateFaceVO;
 import com.sample.servicecomb.provider.service.FaceService;
@@ -166,7 +166,7 @@ public class FaceServiceImpl implements FaceService, DisRecordHandler {
 
     @Override
     public ResponseEntity auxiliaryFace(Map<String, Object> map) throws Exception {
-        String result = frsClientBuilder.auxiliaryFace(map);
+        String result = frsClientBuilder.addFaceLabel(FastJsonUtil.toJSONString(map));
         return ResponseEntityUtil.success(result);
     }
 

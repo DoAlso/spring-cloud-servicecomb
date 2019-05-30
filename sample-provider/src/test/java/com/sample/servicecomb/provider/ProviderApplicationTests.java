@@ -57,7 +57,7 @@ public class ProviderApplicationTests {
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("face_set_name","xinjingri");
         paramMap.put("query_date", DateUtil.currentDate2StringByDay());
-        frsClientUtil.getRenXinSet(paramMap);
+        frsClientUtil.getRenXinSet(FastJsonUtil.toJSONString(paramMap));
     }
 
     @Test
@@ -67,6 +67,6 @@ public class ProviderApplicationTests {
         paramMap.put("face_bucket_name", "hoolink-bucket");
         paramMap.put("face_date", DateUtil.date2String(DateUtil.getSysCurDateTime(),"yyyy-MM-dd'T'HH:mm:ss"));
         paramMap.put("face_obskey","0bce0c6b-496a-4cbb-b3bf-945331e9a43a/1553243506/201903221631461285040035.jpg");
-        frsClientUtil.faceAggregation(paramMap);
+        frsClientUtil.faceAggregation(FastJsonUtil.toJSONString(paramMap));
     }
 }
