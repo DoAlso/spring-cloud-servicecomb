@@ -180,6 +180,22 @@ public class FrsClientUtil {
         return result;
     }
 
+    /**
+     * 人脸标签服务
+     * 设置人脸数据推送地址
+     * @param jsonParam
+     * @return
+     */
+    public String setFaceCallback(String jsonParam) {
+        String result = HuaWeiHttpClient.post(frsProperties.getServiceName(),
+                frsProperties.getRegion(),frsProperties.getAccessKey(),
+                frsProperties.getSecretKey(),
+                HwApiUtil.getFaceUrl(frsProperties, HttpMethod.POST,null,"service_config"),
+                jsonParam);
+        LOGGER.info("FaceAggregation Result:{}",result);
+        return result;
+    }
+
 
     private FrsClient createFrsClient() throws Exception{
         AuthInfo authInfo = new AuthInfo(frsProperties.getEndPoint(),
