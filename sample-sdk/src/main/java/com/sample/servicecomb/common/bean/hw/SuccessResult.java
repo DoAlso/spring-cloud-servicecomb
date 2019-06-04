@@ -1,5 +1,7 @@
 package com.sample.servicecomb.common.bean.hw;
 
+import java.util.Map;
+
 /**
  * @ClassName SuccessResult
  * @Description TODO
@@ -10,7 +12,7 @@ public class SuccessResult {
     public static final String SUCCESS_CODE = "FRS.0000";
     private String code;
     private String message;
-    private Object object;
+    private Map<String,String> result;
 
     public String getCode() {
         return code;
@@ -28,11 +30,11 @@ public class SuccessResult {
         this.message = message;
     }
 
-    public Object getObject() {
-        return object;
+    public Map<String, String> getResult() {
+        return result;
     }
 
-    public void setObject(Object object) {
-        this.object = object;
+    public void setResult(Map<String, String> result) {
+        this.result = result;
     }
 }

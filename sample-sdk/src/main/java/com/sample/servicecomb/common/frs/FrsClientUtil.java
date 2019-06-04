@@ -196,6 +196,41 @@ public class FrsClientUtil {
         return result;
     }
 
+    /**
+     * 人脸标签服务
+     * 查询所有的陌生人脸标签
+     * @param jsonParam
+     * @return
+     */
+    public String searchAllStrangerFaceLabel(String jsonParam) {
+        LOGGER.info("searchAllStrangerFaceLabel Url:{},jsonParam:{}",HwApiUtil.getFaceUrl(frsProperties,HttpMethod.POST,null,"face-label-id/stranger-filter"),jsonParam);
+        String result = HuaWeiHttpClient.post(frsProperties.getServiceName(),
+                frsProperties.getRegion(),frsProperties.getAccessKey(),
+                frsProperties.getSecretKey(),
+                HwApiUtil.getFaceUrl(frsProperties, HttpMethod.POST,null,"face-label-id/stranger-filter"),
+                jsonParam);
+        LOGGER.info("searchAllStrangerFaceLabel Result:{}",result);
+        return result;
+    }
+
+
+    /**
+     * 人脸标签服务
+     * 查询所有的成员人脸标签
+     * @param jsonParam
+     * @return
+     */
+    public String searchAllMemberFaceLabel(String jsonParam) {
+        LOGGER.info("searchAllMemberFaceLabel Url:{},jsonParam:{}",HwApiUtil.getFaceUrl(frsProperties,HttpMethod.POST,null,"face-label-id/member-filter"),jsonParam);
+        String result = HuaWeiHttpClient.post(frsProperties.getServiceName(),
+                frsProperties.getRegion(),frsProperties.getAccessKey(),
+                frsProperties.getSecretKey(),
+                HwApiUtil.getFaceUrl(frsProperties, HttpMethod.POST,null,"face-label-id/member-filter"),
+                jsonParam);
+        LOGGER.info("searchAllMemberFaceLabel Result:{}",result);
+        return result;
+    }
+
 
     private FrsClient createFrsClient() throws Exception{
         AuthInfo authInfo = new AuthInfo(frsProperties.getEndPoint(),
