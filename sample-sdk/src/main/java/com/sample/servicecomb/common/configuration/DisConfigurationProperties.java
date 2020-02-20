@@ -11,10 +11,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(value = "huawei.dis")
 public class DisConfigurationProperties {
     private String region = "cn-north-1";
-    private String endPoint = "https://dis.cn-north-1.myhuaweicloud.com:20004";
-    private String accessKey = "3TWL7VJQ4IM45X3DAMLF";
-    private String secretKey = "i1aCblcgP4ZyoUwBHZnWd4rJCb5skN2Ya0LzSix5";
-    private String projectId = "3c9ff3e423154e03bb8d65cfc5ae0d67";
+    private String endPoint = "";
+    private String accessKey = "";
+    private String secretKey = "";
+    private String projectId = "";
     private String partitionId = "0";
 
     public String getRegion() {
