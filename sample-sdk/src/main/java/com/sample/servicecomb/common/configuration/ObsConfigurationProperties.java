@@ -10,12 +10,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @ConfigurationProperties(value = "huawei.obs")
 public class ObsConfigurationProperties {
-    private String endPoint = "obs.cn-north-1.myhuaweicloud.com";
+    private String endPoint = "";
     private Integer socketTimeout = 30000;
     private Integer connectionTimeout = 10000;
     private Boolean httpsOnly = true;
-    private String ak = "3TWL7VJQ4IM45X3DAMLF";
-    private String sk = "i1aCblcgP4ZyoUwBHZnWd4rJCb5skN2Ya0LzSix5";
+    private String ak = "";
+    private String sk = "";
 
     public String getEndPoint() {
         return endPoint;
