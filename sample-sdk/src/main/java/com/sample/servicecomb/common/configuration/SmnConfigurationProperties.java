@@ -9,10 +9,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @ConfigurationProperties(value = "huawei.smn")
 public class SmnConfigurationProperties {
-    private String ak = "3TWL7VJQ4IM45X3DAMLF";
-    private String sk = "i1aCblcgP4ZyoUwBHZnWd4rJCb5skN2Ya0LzSix5";
+    private String ak = "";
+    private String sk = "";
     private String region = "cn-north-1";
-    private String signId = "d33ad62731e24162b2c9436ba93f7296";
+    private String signId = "";
 
     public String getAk() {
         return ak;
