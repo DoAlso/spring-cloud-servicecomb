@@ -20,7 +20,7 @@
         <java.version>1.8</java.version>
         <generator.version>1.3.7</generator.version>
         <generator-core.version>1.3.7</generator-core.version>
-        <mysql-connector.version>5.1.46</mysql-connector.version>
+        <mysql-connector.version>8.0.16</mysql-connector.version>
         <mybatis-starter>1.3.2</mybatis-starter>
         <mysql-connector.version>8.0.11</mysql-connector.version>
     </properties>
