@@ -42,7 +42,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.39</version>
+            <version>1.2.83</version>
         </dependency>
         <!-- SMN消息服务依赖包 -->
         <dependency>
